@@ -1,0 +1,18 @@
+{
+  "translation": {
+    "Events": {
+      "name": "Events"
+    },
+    "Analatics" : {
+      "name": "Analytics"
+    },
+    "Pariticipants": {
+      "name": "Participants"
+    },
+    "Search" : {
+      "name": "Search"
+    },
+    "Common": {
+    } 
+  }
+}
