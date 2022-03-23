@@ -62,7 +62,7 @@ const Routes = () => (
   <Router>
     <Switch>
       {childRoutes(DashboardLayout, dashboardLayoutRoutes)}
-      <Redirect to="/payments/analytics/customer" />
+      <Redirect to="/events" />
       <Route
         render={() => (
           <Auth>

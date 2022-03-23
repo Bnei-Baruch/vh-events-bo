@@ -51,6 +51,9 @@ const FlagButton = styled(MuiIconButton)`
 
 const UserIconButton = styled(MuiIconButton)`
   font-size: 16px !important;
+  &:hover {
+    border-radius: 10px !important;
+  }
   span,
   label {
     color: #5a5a5a;
@@ -58,9 +61,6 @@ const UserIconButton = styled(MuiIconButton)`
   svg {
     width: 30px;
     height: 30px;
-  }
-  &:hover {
-    background-color: transparent;
   }
   @media (max-width: 600px) {
     padding: 0px !important;
