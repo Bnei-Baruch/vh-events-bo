@@ -14,11 +14,11 @@ ENV REACT_APP_STAGING="${IS_STAGING_BUILD}"
 
 ENV REACT_APP_COMMIT_SHA="${REACT_APP_COMMIT_SHA}"
 
-RUN mkdir vh-dash && chown -R node:node vh-dash
+RUN mkdir vh-events-bo && chown -R node:node vh-events-bo
 
-WORKDIR /vh-dash
+WORKDIR /vh-events-bo
 
-ADD . /vh-dash
+ADD . /vh-events-bo
 
 RUN npm install
 
@@ -29,7 +29,7 @@ FROM nginx:1.15
 COPY nginx/nginx-custom.conf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=builder /vh-dash/build /usr/share/nginx/html
+COPY --from=builder /vh-events-bo/build /usr/share/nginx/html
 
 EXPOSE 80
 

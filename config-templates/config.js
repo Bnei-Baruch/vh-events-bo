@@ -3,6 +3,7 @@ window.APP_CONFIG = {
     REG_BRANCH: '{{env.Getenv "CI_COMMIT_REF_NAME" "-"}}',
     REF_VERSION: '{{env.Getenv "CI_COMMIT_SHA" "-"}}',
     BASE_STATIC_PATH: "/static",
+    KEYCLOAK_URL:  '{{env.Getenv "KEYCLOAK_URL"  "https://api.eurokab.info/"}}',
     PROFILE_URL: '{{env.Getenv "KEYCLOAK_PROFILE_URL" "https://api.eurokab.info/profile/v1/profile"}}',
     KEYCLOAK_CONFIG: {
         realm: '{{env.Getenv "KEYCLOAK_REALM" "master"}}',
