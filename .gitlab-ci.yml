@@ -7,8 +7,8 @@ variables:
   STAGING_LATEST_IMAGE: $CI_REGISTRY_IMAGE:staging
   PROD_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
   PROD_LATEST_IMAGE: $CI_REGISTRY_IMAGE:latest
-  STAGING_URL: "/payments/"
-  PRODUCTION_URL: "https://$PRODUCTION_DOMAIN/payments/"
+  STAGING_URL: "/admin/events"
+  PRODUCTION_URL: "/admin/events"
 
 build_staging:
   image: docker:latest
@@ -26,8 +26,6 @@ build_staging:
     - docker push $STAGING_LATEST_IMAGE
   only:
     - master
-    - staging
-    - dynamic
 
 deploy_staging:
   #image: tmaier/docker-compose:latest
@@ -44,8 +42,6 @@ deploy_staging:
     - IMAGE_NAME=$STAGING_IMAGE docker-compose up -d
   only:
     - master
-    - staging
-    - dynamic
 
 
 build_production:

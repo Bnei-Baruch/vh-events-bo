@@ -62,7 +62,7 @@ const Routes = () => (
   <Router>
     <Switch>
       {childRoutes(DashboardLayout, dashboardLayoutRoutes)}
-      <Redirect to="/events" />
+      <Redirect to="/admin/events" />
       <Route
         render={() => (
           <Auth>

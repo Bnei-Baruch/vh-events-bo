@@ -1,4 +1,4 @@
-export const EVENTS_ROOT = "/events";
+export const EVENTS_ROOT = "/admin/events";
 export const ROOT = "/";
 
 export const EVENTS_ROUTES = {
