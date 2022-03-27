@@ -5,7 +5,7 @@ services:
     cpus: '0.1'
     mem_limit: 50M
     ports:
-      - 8085:80
+      - 8089:80
     volumes:
       - /opt/$CI_PROJECT_PATH/public/config/:/usr/share/nginx/html/config/
 networks:
