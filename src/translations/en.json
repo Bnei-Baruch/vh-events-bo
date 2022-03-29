@@ -3,16 +3,29 @@
     "Events": {
       "name": "Events"
     },
-    "Analatics" : {
+    "Analatics": {
       "name": "Analytics"
     },
     "Pariticipants": {
       "name": "Participants"
     },
-    "Search" : {
+    "Search": {
       "name": "Search"
     },
-    "Common": {
-    } 
+    "common": {
+      "date": "Date",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "registration_status": "Registration Status",
+      "type": "Type",
+      "product": "Product",
+      "amount": "Amount",
+      "currency": "Currency",
+      "paymentId": "Payment ID",
+      "paymentMethod": "Payment Method",
+      "status": "Status",
+      "name": "Name",
+      "event_slug": "Event Slug"
+    }
   }
 }
