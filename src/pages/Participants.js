@@ -1,8 +1,16 @@
-import { Grid } from "@material-ui/core";
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import getEvents from "../services/events.service";
+import getParticipants from "../services/participants.service";
 const options = {
   selectableRows: false,
   download: false,
@@ -11,10 +19,12 @@ const options = {
   responsive: "scroll",
 };
 export default function Participants() {
+  const [events, setEvents] = React.useState([]);
+  const [participants, setParticipants] = React.useState([]);
   const { t } = useTranslation();
   const columns = [
     {
-      name: "payment_date",
+      name: "created_at",
       label: t("common.date"),
       options: {
         filter: false,
@@ -25,66 +35,93 @@ export default function Participants() {
       },
     },
     {
-      name: "type",
-      label: t("common.type"),
+      name: "first_name",
+      label: t("common.firstName"),
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: "product_type",
-      label: t("common.product"),
+      name: "last_name",
+      label: t("common.lastName"),
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: "amount",
-      label: t("common.amount"),
+      name: "email",
+      label: t("common.email"),
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: "currency",
-      label: t("common.currency"),
+      name: "gender",
+      label: t("common.gender"),
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: "payment_id",
-      label: t("common.paymentId"),
+      name: "country",
+      label: t("common.country"),
       options: {
         filter: true,
         sort: false,
       },
-    },
-    {
-      name: "cc_number",
-      label: t("common.paymentMethod"),
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: "payment_status",
-      label: t("common.status"),
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
+    }
   ];
+
+  const getParticipantsData = (slug) => {
+    let query = undefined;
+    if (slug) {
+      query = `?event_slug=${slug}`;
+    }
+    getParticipants(query).then((res) => {
+      setParticipants(res);
+      console.log(res);
+    });
+  };
+
+  React.useEffect(() => {
+    getParticipantsData();
+    getEvents().then((res) => {
+      setEvents(res);
+    });
+  }, []);
   return (
     <Grid container spacing={6}>
+      <Grid container item xs={12}>
+        <Grid item xs={12} md={9}></Grid>
+        <Grid item xs={12} md={3}>
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel id="demo-simple-select-outlined-label">
+              {t("Events.name")}
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              label="events"
+              onChange={(e) => getParticipantsData(e.target.value)}
+            >
+              <MenuItem value="">
+                <em>All</em>
+              </MenuItem>
+              {events.map((event) => (
+                <MenuItem value={event.slug}>
+                  <em>{event.name}</em>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
       <Grid xs={12}>
-        <MUIDataTable data={[]} options={options} columns={columns} />
+        <MUIDataTable data={participants} options={options} columns={columns} />
       </Grid>
     </Grid>
   );

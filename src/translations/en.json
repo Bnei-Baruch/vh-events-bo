@@ -25,7 +25,12 @@
       "paymentMethod": "Payment Method",
       "status": "Status",
       "name": "Name",
-      "event_slug": "Event Slug"
+      "event_slug": "Event Slug",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "country": "Country",
+      "gender": "Gender"
     }
   }
 }
