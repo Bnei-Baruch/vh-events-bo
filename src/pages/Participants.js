@@ -87,7 +87,7 @@ export default function Participants() {
   const getParticipantsData = (slug) => {
     let query = undefined;
     if (slug) {
-      query = `?event_id=${slug}`;
+      query = `?eventid=${slug}`;
     }
     getParticipants(query).then((res) => {
       setParticipants(res);
