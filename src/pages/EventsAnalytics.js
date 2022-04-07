@@ -8,9 +8,16 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import getEvents from "../services/events.service";
 
 export default function EventsAnalytics() {
+  const [events, setEvents] = React.useState([]);
   const { t } = useTranslation();
+  React.useEffect(() => {
+    getEvents().then((res) => {
+      setEvents(res);
+    });
+  }, []);
   return (
     <Grid container spacing={6}>
       <Grid container item xs={12}>
@@ -28,6 +35,14 @@ export default function EventsAnalytics() {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
+              <MenuItem value="">
+                <em>All</em>
+              </MenuItem>
+              {events.map((event) => (
+                <MenuItem value={event.slug}>
+                  <em>{event.name}</em>
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>

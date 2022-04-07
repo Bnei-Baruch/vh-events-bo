@@ -3,6 +3,7 @@ import moment from "moment";
 import MUIDataTable from "mui-datatables";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import getEvents from "../services/events.service";
 const options = {
   selectableRows: false,
   download: false,
@@ -11,11 +12,12 @@ const options = {
   responsive: "scroll",
 };
 export default function Events() {
+  const [events, setEvents] = React.useState([]);
   const { t } = useTranslation();
   const columns = [
     {
-      name: "payment_date",
-      label: t("common.date"),
+      name: "starts_on",
+      label: t("common.startDate"),
       options: {
         filter: false,
         sort: false,
@@ -25,66 +27,51 @@ export default function Events() {
       },
     },
     {
-      name: "type",
-      label: t("common.type"),
+      name: "ends_on",
+      label: t("common.endDate"),
+      options: {
+        filter: false,
+        sort: false,
+        customBodyRender: (value) => (
+          <>{moment(value).format("DD-MM-YYYY HH:MM:SS")} </>
+        ),
+      },
+    },
+    {
+      name: "name",
+      label: t("common.name"),
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: "product_type",
-      label: t("common.product"),
+      name: "slug",
+      label: t("common.event_slug"),
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: "amount",
-      label: t("common.amount"),
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: "currency",
-      label: t("common.currency"),
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: "payment_id",
-      label: t("common.paymentId"),
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: "cc_number",
-      label: t("common.paymentMethod"),
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: "payment_status",
-      label: t("common.status"),
+      name: "registration_status",
+      label: t("common.registration_status"),
       options: {
         filter: true,
         sort: false,
       },
     },
   ];
+
+  React.useEffect(() => {
+    getEvents().then((res) => {
+      setEvents(res);
+    });
+  }, []);
   return (
     <Grid container spacing={6}>
       <Grid xs={12}>
-        <MUIDataTable data={[]} options={options} columns={columns} />
+        <MUIDataTable data={events} options={options} columns={columns} />
       </Grid>
     </Grid>
   );
