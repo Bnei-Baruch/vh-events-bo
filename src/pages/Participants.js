@@ -35,7 +35,7 @@ export default function Participants() {
       },
     },
     {
-      name: "first_name",
+      name: "part_first_name",
       label: t("common.firstName"),
       options: {
         filter: true,
@@ -43,7 +43,7 @@ export default function Participants() {
       },
     },
     {
-      name: "last_name",
+      name: "part_last_name",
       label: t("common.lastName"),
       options: {
         filter: true,
@@ -51,7 +51,7 @@ export default function Participants() {
       },
     },
     {
-      name: "email",
+      name: "part_email",
       label: t("common.email"),
       options: {
         filter: true,
@@ -59,7 +59,7 @@ export default function Participants() {
       },
     },
     {
-      name: "gender",
+      name: "part_gender",
       label: t("common.gender"),
       options: {
         filter: true,
@@ -67,19 +67,27 @@ export default function Participants() {
       },
     },
     {
-      name: "country",
+      name: "part_country",
       label: t("common.country"),
       options: {
         filter: true,
         sort: false,
       },
-    }
+    },
+    {
+      name: "event_name",
+      label: t("common.event"),
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
   ];
 
   const getParticipantsData = (slug) => {
     let query = undefined;
     if (slug) {
-      query = `?event_slug=${slug}`;
+      query = `?event_id=${slug}`;
     }
     getParticipants(query).then((res) => {
       setParticipants(res);
@@ -112,7 +120,7 @@ export default function Participants() {
                 <em>All</em>
               </MenuItem>
               {events.map((event) => (
-                <MenuItem value={event.slug}>
+                <MenuItem value={event.id}>
                   <em>{event.name}</em>
                 </MenuItem>
               ))}

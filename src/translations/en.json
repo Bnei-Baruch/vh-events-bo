@@ -30,7 +30,8 @@
       "lastName": "Last Name",
       "email": "Email",
       "country": "Country",
-      "gender": "Gender"
+      "gender": "Gender",
+      "event": "Event"
     }
   }
 }
