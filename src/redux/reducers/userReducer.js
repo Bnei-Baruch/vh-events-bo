@@ -4,6 +4,8 @@ import {
   setFirstName,
   setLastName,
   setKeycloakData,
+  setUserProfileDetails,
+  updateUserStatus,
 } from "../actions/userActions";
 
 const initialState = {
@@ -24,6 +26,12 @@ export default createReducer(
     [setKeycloakData]: (state, action) => {
       return { ...state, keycloak: action.keycloak };
     },
+    [setUserProfileDetails]: (state, action) => {
+      return { ...state, userDetails: action.value };
+    },
+    [updateUserStatus]: (state, action) => {  // eslint-disable-line
+      return { ...state, userStatus: action.value };
+    }
   },
   initialState
 );

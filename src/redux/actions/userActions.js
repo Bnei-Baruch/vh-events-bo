@@ -4,6 +4,8 @@ import {
   SET_KEYCLOAK_DATA,
   SET_LAST_NAME,
   SET_LOGGEDIN_USER,
+  SET_USER_PROFILE_DETAILS,
+  UPDATE_USER_STATUS
 } from "../constants";
 
 export const setLoggedInUser = createAction(
@@ -19,4 +21,12 @@ export const setLastName = createAction(SET_LAST_NAME, (lastName) => ({
 
 export const setKeycloakData = createAction(SET_KEYCLOAK_DATA, (keycloak) => ({
   keycloak,
+}));
+
+export const setUserProfileDetails = createAction(SET_USER_PROFILE_DETAILS, (value) => ({
+  value,
+}));
+
+export const updateUserStatus = createAction(UPDATE_USER_STATUS, (value) => ({
+  value,
 }));

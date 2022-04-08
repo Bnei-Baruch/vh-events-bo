@@ -1,8 +1,10 @@
-import { Grid } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import { EVENTS_ROUTES } from "../routes/dashboardRoutes";
 import getEvents from "../services/events.service";
 const options = {
   selectableRows: false,
@@ -12,8 +14,12 @@ const options = {
   responsive: "scroll",
 };
 export default function Events() {
+  const history = useHistory();
   const [events, setEvents] = React.useState([]);
   const { t } = useTranslation();
+  const navigate = (eventId) => {
+    history.push(EVENTS_ROUTES.EventsParticipants, { eventId : eventId})
+  }
   const columns = [
     {
       name: "starts_on",
@@ -59,6 +65,21 @@ export default function Events() {
       options: {
         filter: true,
         sort: false,
+      },
+    },
+    {
+      name: "id",
+      label: t("common.action"),
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value) => {
+          return (
+            <Button variant="outlined" size="small" style={{ borderRadius: '10rem' }} onClick={() => navigate(value)}>
+              {t('Events.viewparticipants')}
+            </Button>
+          )
+        },
       },
     },
   ];
