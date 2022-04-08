@@ -1,4 +1,5 @@
 import {
+  Button,
   FormControl,
   Grid,
   InputLabel,
@@ -9,6 +10,7 @@ import moment from "moment";
 import MUIDataTable from "mui-datatables";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import TableDrawer from "../components/TableDrawer";
 import getEvents from "../services/events.service";
 import getParticipants from "../services/participants.service";
 const options = {
@@ -18,7 +20,7 @@ const options = {
   pagination: false,
   responsive: "scroll",
 };
-export default function Participants() {
+export default function Participants(props) {
   const [events, setEvents] = React.useState([]);
   const [participants, setParticipants] = React.useState([]);
   const { t } = useTranslation();
@@ -82,6 +84,26 @@ export default function Participants() {
         sort: false,
       },
     },
+    {
+      name: "part_keycloak_id",
+      label: t("common.action"),
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value) => {
+          return (
+            <Button
+              variant="outlined"
+              size="small"
+              style={{ borderRadius: "10rem" }}
+              onClick={toggleDrawer(value, true)}
+            >
+              {t("Pariticipants.showDetail")}
+            </Button>
+          );
+        },
+      },
+    },
   ];
 
   const getParticipantsData = (slug) => {
@@ -96,11 +118,32 @@ export default function Participants() {
   };
 
   React.useEffect(() => {
-    getParticipantsData();
-    getEvents().then((res) => {
-      setEvents(res);
-    });
-  }, []);
+    if (props && props.location && props.location.state) {
+      const { eventId } = props.location.state;
+      if (eventId) {
+        getParticipantsData(eventId);
+        getEvents().then((res) => {
+          setEvents(res);
+          setSelectedEvent(eventId);
+        });
+      }
+    } else {
+      getParticipantsData();
+      getEvents().then((res) => {
+        setEvents(res);
+      });
+    }
+  }, [props]);
+  const [drawerState, setDrawerState] = React.useState({
+    isOpen: false,
+    id: "",
+  });
+
+  const [selectedEvent, setSelectedEvent] = React.useState("");
+
+  const toggleDrawer = (id, open) => () => {
+    setDrawerState({ ...drawerState, id: id, isOpen: open });
+  };
   return (
     <Grid container spacing={6}>
       <Grid container item xs={12}>
@@ -114,7 +157,11 @@ export default function Participants() {
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
               label="events"
-              onChange={(e) => getParticipantsData(e.target.value)}
+              value={selectedEvent}
+              onChange={(e) => {
+                getParticipantsData(e.target.value);
+                setSelectedEvent(e.target.value);
+              }}
             >
               <MenuItem value="">
                 <em>All</em>
@@ -130,6 +177,7 @@ export default function Participants() {
       </Grid>
       <Grid xs={12}>
         <MUIDataTable data={participants} options={options} columns={columns} />
+        <TableDrawer toggleDrawer={toggleDrawer} drawerState={drawerState} />
       </Grid>
     </Grid>
   );
