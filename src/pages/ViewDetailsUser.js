@@ -14,14 +14,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { isEmpty } from "lodash";
 import Helmet from "react-helmet";
-import Badge from "@material-ui/core/Badge";
 import {
   setUserProfileDetails,
   updateUserStatus,
 } from "../redux/actions/userActions";
 import { getUserDetails, postUserStatus } from "../services/user.service";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   location: {
     width: "120px",
     fontSize: 16,
@@ -70,9 +69,6 @@ const CardContent = styled(MuiCardContent)`
 const textFieldText = {
   fontSize: "16px",
 };
-const typographyWidth = {
-  width: "89.2px",
-};
 
 const ViewDetailsUser = (props) => {
   const user = useSelector((state) => state.userReducer.userDetails);
@@ -85,28 +81,15 @@ const ViewDetailsUser = (props) => {
   const classes = useStyles();
   React.useEffect(() => {
     getUserDetails(userId).then((res) => dispatch(setUserProfileDetails(res)));
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [userId]);
 
   React.useEffect(() => {
     postUserStatus(userId, user?.primary_email).then((res) =>
       dispatch(updateUserStatus(res))
     );
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [userId, user]);
-
-  const galaxy = {
-    backgroundColor: `${user?.status?.galaxy ? "#4CAF50" : "#7D7D7D"}`,
-  };
-  const membership = {
-    backgroundColor: `${user?.status?.membership ? "#4CAF50" : "#7D7D7D"}`,
-  };
-  const ticket = {
-    backgroundColor: `${user?.status?.ticket ? "#4CAF50" : "#7D7D7D"}`,
-  };
-  const convention = {
-    backgroundColor: `${user?.status?.convention ? "#4CAF50" : "#7D7D7D"}`,
-  };
 
   if (isEmpty(user)) {
     return <></>;
@@ -230,113 +213,6 @@ const ViewDetailsUser = (props) => {
                           </Grid>
                         );
                       })}
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12}>
-              <Card>
-                <CardContent>
-                  <Grid container direction="column">
-                    <Typography className={classes.cardHeaderText}>
-                      {t("common.status")}
-                    </Typography>
-                    <Grid
-                      container
-                      direction="row"
-                      spacing={6}
-                      alignItems="flex-start"
-                      justify="space-between"
-                      xl={8}
-                    >
-                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <Grid container direction="row" justify="space-between">
-                          <Grid item>
-                            <Typography
-                              className={classes.typography}
-                              style={typographyWidth}
-                            >
-                              {t("common.galaxy")}
-                            </Typography>
-                          </Grid>
-
-                          <Grid item>
-                            <Badge style={galaxy} className={classes.status}>
-                              {user?.status?.galaxy ? "yes" : "n/a"}
-                            </Badge>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-
-                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <Grid container direction="row" justify="space-between">
-                          <Grid item>
-                            <Typography
-                              className={classes.typography}
-                              style={typographyWidth}
-                            >
-                              {t("common.convention")}
-                            </Typography>
-                          </Grid>
-
-                          <Grid item>
-                            <Badge
-                              style={convention}
-                              className={classes.status}
-                            >
-                              {user?.status?.convention
-                                ? t("common.registered")
-                                : t("common.notRegistered")}
-                            </Badge>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-
-                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <Grid container direction="row" justify="space-between">
-                          <Grid item>
-                            <Typography className={classes.typography}>
-                              {t("common.membership")}
-                            </Typography>
-                          </Grid>
-
-                          <Grid item>
-                            <Badge
-                              style={membership}
-                              className={classes.status}
-                            >
-                              {user?.status?.membership
-                                ? t("common.searchFieldsLabels.active")
-                                : t("common.searchFieldsLabels.inActive")}
-                            </Badge>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-
-                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <Grid container direction="row" justify="space-between">
-                          <Grid item>
-                            <Typography
-                              className={classes.typography}
-                              style={typographyWidth}
-                            >
-                              {t("common.ticket")}
-                            </Typography>
-                          </Grid>
-
-                          <Grid item>
-                            <Typography
-                              style={ticket}
-                              className={classes.status}
-                            >
-                              {user?.status?.ticket
-                                ? t("common.ticket")
-                                : t("common.noTicket")}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Grid>
                     </Grid>
                   </Grid>
                 </CardContent>
