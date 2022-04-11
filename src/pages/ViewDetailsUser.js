@@ -18,7 +18,7 @@ import {
   setUserProfileDetails,
   updateUserStatus,
 } from "../redux/actions/userActions";
-import { getUserDetails, postUserStatus } from "../services/user.service";
+import { getMembershipStatus, getUserDetails, postUserStatus } from "../services/user.service";
 
 const useStyles = makeStyles(() => ({
   location: {
@@ -70,16 +70,30 @@ const textFieldText = {
   fontSize: "16px",
 };
 
+const active = {
+  backgroundColor: "rgb(52, 168, 83)",
+  padding: "5px 10px",
+  borderRadius: "5px",
+  color: "white",
+}
+const inactive = {
+  padding: "5px 10px",
+  borderRadius: "5px",
+  backgroundColor: "#d70000",
+  color: "white",
+}
 const ViewDetailsUser = (props) => {
   const user = useSelector((state) => state.userReducer.userDetails);
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [membership, setMembership] = React.useState({});
 
   const userId = props?.id;
 
   const classes = useStyles();
   React.useEffect(() => {
+    getMembershipStatus(userId).then((res) => setMembership(res));
     getUserDetails(userId).then((res) => dispatch(setUserProfileDetails(res)));
     // eslint-disable-next-line
   }, [userId]);
@@ -160,6 +174,7 @@ const ViewDetailsUser = (props) => {
       defaulValue: user?.other_language_4,
     },
   ];
+  console.log(membership)
   return (
     <React.Fragment>
       <Helmet title={t("common.registration")} />
@@ -172,7 +187,7 @@ const ViewDetailsUser = (props) => {
         {t("common.details")}
       </Typography>
 
-      <Grid container className={classes.contentPadding}>
+      <Grid container className={classes.contentPadding} spacing={3}>
         <Grid item xs={12}>
           <Grid container direction="column" spacing={6}>
             <Grid item xs={12}>
@@ -214,6 +229,26 @@ const ViewDetailsUser = (props) => {
                         );
                       })}
                     </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container direction="column" spacing={6}>
+            <Grid item xs={12}>
+              <Card>
+                <CardContent>
+                  <Grid container direction="column">
+                    <Typography className={classes.cardHeaderText}>
+                      {t("common.membership")}
+                    </Typography>
+                    <Typography >
+                      <span style={membership.membership ? active : inactive}>
+                        {membership.membership ? "Active" : "Inactive"}
+                      </span>
+                    </Typography>
                   </Grid>
                 </CardContent>
               </Card>
