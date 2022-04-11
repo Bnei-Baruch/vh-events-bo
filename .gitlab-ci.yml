@@ -1,13 +1,16 @@
-include:
-  - project: 'vh/ci_templates'  
-    ref: 'master'
-    file: 'react-stages.yaml'
-  - project: 'vh/ci_templates'  
-    ref: 'master'
-    file: 'build-react.yaml'
-  - project: 'vh/ci_templates'  
-    ref: 'master'
-    file: 'deploy-react.yaml'
+# include:
+#   - project: 'vh/ci_templates'  
+#     ref: 'master'
+#     file: 'react-stages.yaml'
+#   - project: 'vh/ci_templates'  
+#     ref: 'master'
+#     file: 'build-base-react.yaml'
+#   - project: 'vh/ci_templates'  
+#     ref: 'master'
+#     file: 'build-react.yaml'
+#   - project: 'vh/ci_templates'  
+#     ref: 'master'
+#     file: 'deploy-react.yaml'
 
 variables:
   STAGING_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
@@ -17,43 +20,49 @@ variables:
   STAGING_URL: '/admin/events'
   PRODUCTION_URL: '/admin/events'
 
-build_staging:
-  extends: .build_front
-  variables:
-    BUILD_FOR_URL: "$STAGING_URL"
-    REACT_APP_STAGING: 'true'
-  stage: build
-  only:
-    - master
+include:
+  - project: 'vh/ci_templates'
+    ref: 'master'
+    file: 'front-std.yaml'
 
-deploy_staging:
-  extends: .deploy_front
-  stage: deploy
-  tags:
-    - staging
-  only:
-    - master
 
-build_production:
-  extends: .build_front
-  variables:
-    REACT_APP_STAGING: 'false'
-    BUILD_FOR_URL: "$PRODUCTION_URL"
-  stage: build
-  only:
-    - tags
+# build_staging:
+#   extends: .build_front
+#   variables:
+#     BUILD_FOR_URL: "$STAGING_URL"
+#     REACT_APP_STAGING: 'true'
+#   stage: build
+#   only:
+#     - master
+
+# deploy_staging:
+#   extends: .deploy_front
+#   stage: deploy
+#   tags:
+#     - staging
+#   only:
+#     - master
+
+# build_production:
+#   extends: .build_front
+#   variables:
+#     REACT_APP_STAGING: 'false'
+#     BUILD_FOR_URL: "$PRODUCTION_URL"
+#   stage: build
+#   only:
+#     - tags
   
 
-deploy_production:
-  extends: .deploy_front
-  variables:
-    VAR_PREFIX: "DYN_PROD_"
-  stage: deploy
-  tags:
-    - production
-  only:
-    - tags
-  when: manual
+# deploy_production:
+#   extends: .deploy_front
+#   variables:
+#     VAR_PREFIX: "DYN_PROD_"
+#   stage: deploy
+#   tags:
+#     - production
+#   only:
+#     - tags
+#   when: manual
 
 
 
