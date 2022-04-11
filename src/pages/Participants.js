@@ -69,6 +69,14 @@ export default function Participants(props) {
       },
     },
     {
+      name: "participation_option",
+      label: t('common.participation_option'),
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
       name: "part_country",
       label: t("common.country"),
       options: {

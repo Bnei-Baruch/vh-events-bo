@@ -14,7 +14,11 @@
     "Search": {
       "name": "Search"
     },
+    "UserMenu": {
+      "logOut": "Log Out"
+    },
     "common": {
+      "participation_option": "Participation Option",
       "date": "Date",
       "details": "Details",
       "galaxy": "Galaxy",

@@ -4,8 +4,6 @@ window.APP_CONFIG = {
     REF_VERSION: '{{env.Getenv "CI_COMMIT_SHA" "-"}}',
     BASE_STATIC_PATH: "/static",
     VH_API_BASE_URL: '{{env.Getenv "VH_API_BASE_URL" "https://api.eurokab.info"}}',
-    KEYCLOAK_URL:  '{{env.Getenv "KEYCLOAK_URL"  "https://api.eurokab.info/"}}',
-    PROFILE_URL: '{{env.Getenv "KEYCLOAK_PROFILE_URL" "https://api.eurokab.info/profile/v1/profile"}}',
     KEYCLOAK_CONFIG: {
         realm: '{{env.Getenv "KEYCLOAK_REALM" "master"}}',
         url: '{{env.Getenv "KEYCLOAK_URL" "https://auth.2serv.eu/auth/"}}',

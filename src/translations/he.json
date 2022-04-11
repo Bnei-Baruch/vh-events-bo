@@ -1,18 +1,133 @@
 {
   "translation": {
     "Events": {
-      "name": "Events"
+      "name": "Events",
+      "viewparticipants": "View Participants"
     },
-    "Analatics" : {
+    "Analatics": {
       "name": "Analytics"
     },
     "Pariticipants": {
-      "name": "Participants"
+      "name": "Participants",
+      "showDetail": "Show Detail"
     },
-    "Search" : {
+    "Search": {
       "name": "Search"
     },
-    "Common": {
-    } 
+    "UserMenu": {
+      "logOut": "Log Out"
+    },
+    "common": {
+      "participation_option": "Participation Option",
+      "date": "Date",
+      "details": "Details",
+      "galaxy": "Galaxy",
+      "membership": "Membership",
+      "convention": "Convention",
+      "ticket": "Ticket",
+      "noTicket": "No ticket",
+      "personal": "Personal",
+      "regionalInfo": "Regional info",
+      "languages": "Languages",
+      "communication": "Communication",
+      "registered": "Registered",
+      "notRegistered": "Not registered",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "registration_status": "Registration Status",
+      "type": "Type",
+      "product": "Product",
+      "amount": "Amount",
+      "currency": "Currency",
+      "paymentId": "Payment ID",
+      "paymentMethod": "Payment Method",
+      "status": "Status",
+      "name": "Name",
+      "event_slug": "Event Slug",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "country": "Country",
+      "gender": "Gender",
+      "event": "Event",
+      "other_language_1": "Other Language 1",
+      "other_language_2": "Other Language 2",
+      "other_language_3": "Other Language 3",
+      "other_language_4": "Other Language 4",
+      "stateRegion": "State / Region",
+      "streetAddress": "Street Address",
+      "action": "Action",
+      "searchFieldsLabels": {
+        "name": "Name",
+        "email": "Email",
+        "country": "Country",
+        "gender": "Gender",
+        "membershipStatus": "Membership Status",
+        "membershipType": "Membership Type",
+        "registered": "Registered",
+        "nameOfTen": "Name of ten",
+        "firstLanguage": "First language",
+        "otherLanguage": "Second language",
+        "female": "Female",
+        "male": "Male",
+        "yes": "Yes",
+        "no": "No",
+        "active": "Active",
+        "inActive": "Inactive",
+        "help": "Help",
+        "manual": "Manual",
+        "grant": "Grant"
+    },
+      "tables": {
+        "event": {
+          "id": "Id",
+          "eventName": "Event Name",
+          "eventCode": "Event Code",
+          "registration": "Registration",
+          "status": "Status",
+          "participantButton": "participants",
+          "activeFilter": "active",
+          "inactiveFilter": "inactive"
+        },
+        "eventParticipation": {
+          "email": "Email",
+          "name": "Name",
+          "dob": "Date of Birth",
+          "gender": "Gender",
+          "country": "Country",
+          "firstLanguage": "First Language",
+          "secondLanguage": "Second Language",
+          "communicationLanguage": "Communication Language",
+          "details": "Details",
+          "viewButton": "View",
+          "registrationStatus": "Status",
+          "registered": "Registered",
+          "searchHiddenFields": {
+            "lastName": "Last Name",
+            "streetAddress": "Street Address",
+            "postalCode": "Postal Code",
+            "city": "City",
+            "maritalStatus": "Marital Status",
+            "alternate_email_1": "Alternate Email 1",
+            "alternate_email_2": "Alternate Email 2",
+            "listening_language": "Listening Language",
+            "reading_language": "Reading Language",
+            "email_language": "Email Language",
+            "study_start_year": "Study Start Year",
+            "study_framework": "Study Framework",
+            "name_ten_group": "Name Ten Group"
+          }
+        },
+        "manualMembership": {
+          "email": "Email",
+          "howPaid": "How was it paid",
+          "paidBy": "Paid by",
+          "relationship": "Relationship",
+          "payerEmail": "Payer Email",
+          "phone": "Phone",
+          "noMatch": "Sorry, no matching records found"
+        }
+      }
+    }
   }
 }

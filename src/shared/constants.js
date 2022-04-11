@@ -4,7 +4,7 @@ export const QUESTION_URL = "https://qst.kli.one";
 
 //export const PROFILE_URL = 'http://localhost:7471/v1/profile';
 export const PROFILE_URL =
-  window.APP_CONFIG.KEYCLOAK_URL + "/profile/v1/profile";
+  window.APP_CONFIG.VH_API_BASE_URL + "/profile/v1/profile";
 // process.env.REACT_APP_STAGING === 'true' ?
 // 'https://api.eurokab.info/profile/v1/profile' :
 // 'https://api.kli.one/profile/v1/profile';
