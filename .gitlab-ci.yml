@@ -1,3 +1,8 @@
+include:
+  - project: 'vh/ci_templates'
+    ref: 'master'
+    file: 'front-std.yaml'
+
 variables:
   STAGING_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   STAGING_LATEST_IMAGE: $CI_REGISTRY_IMAGE:staging
@@ -7,7 +12,3 @@ variables:
   PRODUCTION_URL: '/admin/events'
   BUILD_FOR_URL: '/admin/events'
 
-include:
-  - project: 'vh/ci_templates'
-    ref: 'master'
-    file: 'front-std.yaml'
