@@ -19,6 +19,7 @@ variables:
   PROD_LATEST_IMAGE: $CI_REGISTRY_IMAGE:latest
   STAGING_URL: '/admin/events'
   PRODUCTION_URL: '/admin/events'
+  BUILD_FOR_URL: '/admin/events'
 
 include:
   - project: 'vh/ci_templates'
