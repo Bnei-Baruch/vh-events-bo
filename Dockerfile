@@ -1,3 +1,11 @@
+#######################################################################################
+###                                                                                 ###
+### IMPORTANT NOTICE:                                                               ###
+### This is not the docker file used by gitlab runners to build docker images.      ###
+### In order to modify the Dockerfile used by gitlab CICD , please refer:           ###
+### https://gitlab.bbdev.team/vh/ci_templates/-/blob/master/Dockerfile-react        ###
+###                                                                                 ###
+#######################################################################################
 FROM node:14.12.0-stretch as builder
 # this will be passed in as  --build-arg, when building docker image
 # default value will be localhost
