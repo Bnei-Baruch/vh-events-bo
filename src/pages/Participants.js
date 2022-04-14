@@ -13,17 +13,49 @@ import { useTranslation } from "react-i18next";
 import TableDrawer from "../components/TableDrawer";
 import getEvents from "../services/events.service";
 import getParticipants from "../services/participants.service";
-const options = {
-  selectableRows: false,
-  download: false,
-  print: false,
-  pagination: false,
-  responsive: "scroll",
-};
 export default function Participants(props) {
   const [events, setEvents] = React.useState([]);
   const [participants, setParticipants] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [limit, setLimit] = React.useState(10);
   const { t } = useTranslation();
+  const options = {
+    selectableRows: false,
+    download: false,
+    print: false,
+    count: participants.length + 1,
+    responsive: "scroll",
+    pagination: true,
+    rowsPerPage: 10,
+    rowsPerPageOptions: [],
+    serverSide: true,
+    onTableChange: (action, tableState) => {
+      if (action === "changePage") {
+        if (page < tableState.page) {
+          if (props && props.location && props.location.state) {
+            const { eventId } = props.location.state;
+            if (eventId) {
+              getParticipantsData(eventId, limit + 10);
+              setPage(tableState.page);
+              getEvents().then((res) => {
+                setEvents(res);
+                setSelectedEvent(eventId);
+              });
+            }
+          } else {
+            getParticipantsData(undefined, limit + 10);
+            setPage(tableState.page);
+            getEvents().then((res) => {
+              setEvents(res);
+            });
+          }
+        } else if (page > tableState.page) {
+          setLimit(limit - 10);
+          setPage(tableState.page);
+        }
+      }
+    }
+  };
   const columns = [
     {
       name: "created_at",
@@ -103,7 +135,7 @@ export default function Participants(props) {
             <Button
               variant="outlined"
               size="small"
-              style={{ borderRadius: "10rem" }}
+              style={{ borderRadius: "10px" }}
               onClick={toggleDrawer(value, true)}
             >
               {t("Pariticipants.showDetail")}
@@ -114,14 +146,16 @@ export default function Participants(props) {
     },
   ];
 
-  const getParticipantsData = (slug) => {
+  const getParticipantsData = (slug, lim) => {
     let query = undefined;
     if (slug) {
       query = `?eventid=${slug}`;
     }
-    getParticipants(query).then((res) => {
+    getParticipants(query, lim).then((res) => {
       setParticipants(res);
-      console.log(res);
+      if (lim > limit) {
+        setLimit(lim);
+      }
     });
   };
 
@@ -141,6 +175,7 @@ export default function Participants(props) {
         setEvents(res);
       });
     }
+  // eslint-disable-next-line
   }, [props]);
   const [drawerState, setDrawerState] = React.useState({
     isOpen: false,
@@ -174,8 +209,8 @@ export default function Participants(props) {
               <MenuItem value="">
                 <em>All</em>
               </MenuItem>
-              {events.map((event) => (
-                <MenuItem value={event.id}>
+              {events.map((event, index) => (
+                <MenuItem key={index} value={event.id}>
                   <em>{event.name}</em>
                 </MenuItem>
               ))}
@@ -184,7 +219,7 @@ export default function Participants(props) {
         </Grid>
       </Grid>
       <Grid xs={12}>
-        <MUIDataTable data={participants} options={options} columns={columns} />
+        <MUIDataTable data={participants.slice(limit - 10, limit)} options={options} columns={columns} />
         <TableDrawer toggleDrawer={toggleDrawer} drawerState={drawerState} />
       </Grid>
     </Grid>
