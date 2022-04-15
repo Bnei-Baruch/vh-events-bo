@@ -93,12 +93,14 @@ const ViewDetailsUser = (props) => {
 
   const classes = useStyles();
   React.useEffect(() => {
-    getMembershipStatus(userId).then((res) => setMembership(res));
     getUserDetails(userId).then((res) => dispatch(setUserProfileDetails(res)));
     // eslint-disable-next-line
   }, [userId]);
 
   React.useEffect(() => {
+    if (user && user.primary_email) {
+      getMembershipStatus(user?.primary_email).then((res) => setMembership(res));
+    }
     postUserStatus(userId, user?.primary_email).then((res) =>
       dispatch(updateUserStatus(res))
     );
