@@ -133,8 +133,6 @@ export default function Search(props) {
     getParticipantsData(email, limit);
   }
 
-  const [selectedEvent, setSelectedEvent] = React.useState("");
-
   const toggleDrawer = (id, open) => () => {
     setDrawerState({ ...drawerState, id: id, isOpen: open });
   };
