@@ -12,7 +12,18 @@
       "showDetail": "Show Detail"
     },
     "Search": {
-      "name": "Search"
+      "name": "Search",
+      "enterEmail": "Enter Email",
+      "enterFirstName": "Enter First Name",
+      "enterLastName": "Enter Last Name",
+      "country": "Country",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "russia": "Russia",
+      "ukraine": "Ukraine",
+      "helphaver": "Help Haver",
+      "regular": "Regular"
     },
     "UserMenu": {
       "logOut": "Log Out"

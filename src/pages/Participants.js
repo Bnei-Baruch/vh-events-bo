@@ -18,40 +18,55 @@ export default function Participants(props) {
   const [participants, setParticipants] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [limit, setLimit] = React.useState(10);
+  const [totalCount, setTotalCount] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { t } = useTranslation();
   const options = {
     selectableRows: false,
     download: false,
     print: false,
-    count: participants.length + 1,
-    responsive: "scroll",
+    count: totalCount,
+    responsive: "standard",
     pagination: true,
-    rowsPerPage: 10,
-    rowsPerPageOptions: [],
+    rowsPerPageOptions: [10, 25, 50, 100],
+    rowsPerPage: rowsPerPage,
     serverSide: true,
     onTableChange: (action, tableState) => {
+      if (action === 'changeRowsPerPage') {
+        setRowsPerPage(tableState.rowsPerPage);
+        if (props && props.location && props.location.state) {
+          const { eventId } = props.location.state;
+          if (eventId) {
+            getParticipantsData(eventId, tableState.rowsPerPage, tableState.rowsPerPage * page);
+            getEvents().then((res) => {
+              setEvents(res);
+              setSelectedEvent(eventId);
+            });
+          }
+        } else {
+          getParticipantsData(undefined, tableState.rowsPerPage, tableState.rowsPerPage * page);
+          getEvents().then((res) => {
+            setEvents(res);
+          });
+        }
+      }
       if (action === "changePage") {
-        if (page < tableState.page) {
-          if (props && props.location && props.location.state) {
-            const { eventId } = props.location.state;
-            if (eventId) {
-              getParticipantsData(eventId, limit + 10);
-              setPage(tableState.page);
-              getEvents().then((res) => {
-                setEvents(res);
-                setSelectedEvent(eventId);
-              });
-            }
-          } else {
-            getParticipantsData(undefined, limit + 10);
+        if (props && props.location && props.location.state) {
+          const { eventId } = props.location.state;
+          if (eventId) {
+            getParticipantsData(eventId, rowsPerPage, tableState.page * rowsPerPage);
             setPage(tableState.page);
             getEvents().then((res) => {
               setEvents(res);
+              setSelectedEvent(eventId);
             });
           }
-        } else if (page > tableState.page) {
-          setLimit(limit - 10);
+        } else {
+          getParticipantsData(undefined, rowsPerPage, tableState.page * rowsPerPage);
           setPage(tableState.page);
+          getEvents().then((res) => {
+            setEvents(res);
+          });
         }
       }
     }
@@ -146,13 +161,14 @@ export default function Participants(props) {
     },
   ];
 
-  const getParticipantsData = (slug, lim) => {
+  const getParticipantsData = (slug, lim, skip) => {
     let query = undefined;
     if (slug) {
       query = `?eventid=${slug}`;
     }
-    getParticipants(query, lim).then((res) => {
-      setParticipants(res);
+    getParticipants(query, lim, skip).then((res) => {
+      setParticipants(res.data);
+      setTotalCount(res.totalCount)
       if (lim > limit) {
         setLimit(lim);
       }
@@ -163,19 +179,19 @@ export default function Participants(props) {
     if (props && props.location && props.location.state) {
       const { eventId } = props.location.state;
       if (eventId) {
-        getParticipantsData(eventId);
+        getParticipantsData(eventId, rowsPerPage, 0);
         getEvents().then((res) => {
           setEvents(res);
           setSelectedEvent(eventId);
         });
       }
     } else {
-      getParticipantsData();
+      getParticipantsData(undefined, rowsPerPage, 0);
       getEvents().then((res) => {
         setEvents(res);
       });
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [props]);
   const [drawerState, setDrawerState] = React.useState({
     isOpen: false,
@@ -202,7 +218,8 @@ export default function Participants(props) {
               label="events"
               value={selectedEvent}
               onChange={(e) => {
-                getParticipantsData(e.target.value);
+                getParticipantsData(e.target.value, rowsPerPage, 0);
+                setPage(0);
                 setSelectedEvent(e.target.value);
               }}
             >
@@ -219,7 +236,7 @@ export default function Participants(props) {
         </Grid>
       </Grid>
       <Grid xs={12}>
-        <MUIDataTable data={participants.slice(limit - 10, limit)} options={options} columns={columns} />
+        {participants && participants.length > 0 && <MUIDataTable data={participants.slice(participants.length - rowsPerPage, participants.length)} options={options} columns={columns} />}
         <TableDrawer toggleDrawer={toggleDrawer} drawerState={drawerState} />
       </Grid>
     </Grid>

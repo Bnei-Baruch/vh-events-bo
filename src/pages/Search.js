@@ -1,24 +1,60 @@
 import {
   Button,
+  CircularProgress,
   Grid,
   TextField,
 } from "@material-ui/core";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import React from "react";
 import { useTranslation } from "react-i18next";
 import TableDrawer from "../components/TableDrawer";
 import getParticipants from "../services/participants.service";
+import countries from "../constants/countries";
 export default function Search(props) {
   const [participants, setParticipants] = React.useState([]);
-  const [limit, setLimit] = React.useState(100);
+  const [limit, setLimit] = React.useState(10);
+  const [page, setPage] = React.useState(0);
+  const [loading, setLoading] = React.useState(false);
+  const [totalCount, setTotalCount] = React.useState(0);
+  const [params, setParams] = React.useState(undefined);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { t } = useTranslation();
   const options = {
     selectableRows: false,
     download: false,
     print: false,
-    pagination: false,
-    responsive: "scroll"
+    pagination: true,
+    responsive: "scroll",
+    count: totalCount,
+    rowsPerPageOptions: [10, 25, 50, 100],
+    rowsPerPage: rowsPerPage,
+    serverSide: true,
+    onTableChange: (action, tableState) => {
+      if (action === 'changeRowsPerPage') {
+        setRowsPerPage(tableState.rowsPerPage);
+        if (params) {
+          getParticipantsData(params, tableState.rowsPerPage, tableState.rowsPerPage * page);
+          setPage(tableState.page);
+        } else {
+          getParticipantsData(undefined, tableState.rowsPerPage, tableState.rowsPerPage * page);
+          setPage(tableState.page);
+        }
+      }
+      if (action === "changePage") {
+        if (params) {
+          getParticipantsData(params, rowsPerPage, tableState.page * rowsPerPage);
+          setPage(tableState.page);
+        } else {
+          getParticipantsData(undefined, rowsPerPage, tableState.page * rowsPerPage);
+          setPage(tableState.page);
+        }
+      }
+    }
   };
   const columns = [
     {
@@ -110,16 +146,17 @@ export default function Search(props) {
     },
   ];
 
-  const getParticipantsData = (email, lim) => {
+  const getParticipantsData = (params, lim, skip) => {
     let query = undefined;
-    if (email) {
-      query = `?part_email=${email}`;
+    if (params) {
+      query = params;
     }
-    getParticipants(query, lim).then((res) => {
-      setParticipants(res);
-      if (lim > limit) {
-        setLimit(lim);
-      }
+    getParticipants(query, lim, skip).then((res) => {
+      setParticipants(res.data);
+      setTotalCount(res.totalCount);
+      setLoading(false);
+    }).catch(() => {
+      setLoading(false);
     });
   };
   const [drawerState, setDrawerState] = React.useState({
@@ -128,28 +165,90 @@ export default function Search(props) {
   });
 
   const formSubmitted = (event) => {
+    setLoading(true);
     event.preventDefault();
-    const email = event.target.email.value;
-    getParticipantsData(email, limit);
+    let params = '';
+    for (var i = 0; i < event.target.length; i++) {
+      var fieldName = event.target[i].name;
+      var fieldValue = event.target[i].value;
+      if (fieldName && fieldValue && fieldValue.trim() !== '') {
+        if (params !== '') {
+          params += '&';
+        }
+        params += fieldName + '=' + fieldValue;
+      }
+    }
+    setParams(params);
+    getParticipantsData(params, rowsPerPage, page * rowsPerPage);
   }
 
   const toggleDrawer = (id, open) => () => {
     setDrawerState({ ...drawerState, id: id, isOpen: open });
   };
   return (
-    <Grid container spacing={6}>
-      <Grid container item xs={12}>
-        <Grid item xs={12}>
-          <form style={{display: 'flex'}} onSubmit={formSubmitted} noValidate autoComplete="off">
-            <TextField style={{minWidth: '250px'}} id="outlined-basic" name="email" label="Enter Email" variant="outlined" required={true} /> &nbsp;
+    <form onSubmit={formSubmitted} noValidate autoComplete="off">
+      <Grid container spacing={6}>
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <TextField id="outlined-basic" fullWidth name="email" label={t('Search.enterEmail')} variant="outlined" required={true} /> &nbsp;
+          </Grid>
+          <Grid item xs={3}>
+            <TextField id="outlined-basic" fullWidth name="fname" label={t('Search.enterFirstName')} variant="outlined" required={true} /> &nbsp;
+          </Grid>
+          <Grid item xs={3}>
+            <TextField id="outlined-basic" fullWidth name="lname" label={t('Search.enterLastName')} variant="outlined" required={true} /> &nbsp;
+          </Grid>
+          <Grid item xs={3}>
+            <FormControl variant="filled" fullWidth>
+              <InputLabel id="demo-simple-select-filled-label">{t('Search.country')}</InputLabel>
+              <Select
+                labelId="demo-simple-select-filled-label"
+                id="demo-simple-select-filled"
+                name="country"
+              >
+                {countries.map(item => {
+                  return <MenuItem value={item.ISO}>{item.label}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+            <FormControl variant="filled" fullWidth>
+              <InputLabel id="demo-simple-select-filled-label">{t('Search.gender')}</InputLabel>
+              <Select
+                labelId="demo-simple-select-filled-label"
+                id="demo-simple-select-filled"
+                name="gender"
+              >
+                <MenuItem value={'male'}>{t('Search.male')}</MenuItem>
+                <MenuItem value={'female'}>{t('Search.female')}</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+            <FormControl variant="filled" fullWidth>
+              <InputLabel id="demo-simple-select-filled-label">{t('common.participation_option')}</InputLabel>
+              <Select
+                labelId="demo-simple-select-filled-label"
+                id="demo-simple-select-filled"
+                name="part-option"
+              >
+                <MenuItem value={'sp-russia'}>{t('Search.russia')}</MenuItem>
+                <MenuItem value={'sp-ukraine'}>{t('Search.ukraine')}</MenuItem>
+                <MenuItem value={'hh-request'}>{t('Search.helphaver')}</MenuItem>
+                <MenuItem value={'regular'}>{t('Search.regular')}</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={3}>
             <Button variant="contained" color="primary" type={'submit'}>{t('Search.name')}</Button>
-          </form>
+          </Grid>
+        </Grid>
+        <Grid xs={12}>
+          {!loading  ? <MUIDataTable data={participants && participants.length > 0 ? participants.slice(participants.length - rowsPerPage, participants.length) : []} options={options} columns={columns} /> : <div style={{ margin: '20px', textAlign: 'center' }}><CircularProgress m={2} color="secondary" /></div>}
+          <TableDrawer toggleDrawer={toggleDrawer} drawerState={drawerState} />
         </Grid>
       </Grid>
-      <Grid xs={12}>
-        <MUIDataTable data={participants} options={options} columns={columns} />
-        <TableDrawer toggleDrawer={toggleDrawer} drawerState={drawerState} />
-      </Grid>
-    </Grid>
+    </form>
   );
 }
