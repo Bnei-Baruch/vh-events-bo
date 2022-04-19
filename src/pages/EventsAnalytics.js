@@ -78,6 +78,10 @@ export default function EventsAnalytics() {
                   {part.participation_option === 'sp-ukraine' && <Typography variant="h6">{t('Search.ukraine')}</Typography>}
                   {part.participation_option === 'sp-russia' && <Typography variant="h6">{t('Search.russia')}</Typography>}
                   {part.participation_option === 'hh-request' && <Typography variant="h6">{t('Search.helphaver')}</Typography>}
+                  {part.participation_option !== 'regular' && 
+                  part.participation_option !== 'sp-ukraine' && 
+                  part.participation_option !== 'sp-russia' && 
+                  part.participation_option !== 'hh-request' && <Typography variant="h6">{part.participation_option}</Typography>}
                   <Typography variant="h4">{part.count}</Typography></Grid>
               </Grid>
             </Paper>
