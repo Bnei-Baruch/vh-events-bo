@@ -21,10 +21,10 @@ const dashboardRoutes = [
   },
   {
     path: EVENTS_ROUTES.EventsAnalytics,
-    id: "Analatics",
+    id: "Analytics",
     icon: <BarChartIcon />,
     enableHeader: true,
-    breadcrumbs: [{ name: "Analatics", path: EVENTS_ROUTES.EventsAnalytics }],
+    breadcrumbs: [{ name: "Analytics", path: EVENTS_ROUTES.EventsAnalytics }],
     component: EventsAnalyticsPage,
   },
   {

@@ -4,8 +4,12 @@
       "name": "Events",
       "viewparticipants": "View Participants"
     },
-    "Analatics": {
-      "name": "Analytics"
+    "Analytics": {
+      "name": "Analytics",
+      "TotalPaid": "Total Paid Tickets",
+      "TotalPaidWithCC": "Total CC Payments",
+      "TotalSold": "Total Tickets Sold",
+      "TotalParticipant": "Total Participants"
     },
     "Pariticipants": {
       "name": "Participants",
@@ -23,7 +27,8 @@
       "russia": "Russia",
       "ukraine": "Ukraine",
       "helphaver": "Help Haver",
-      "regular": "Regular"
+      "regular": "Regular",
+      "reset": "Reset"
     },
     "UserMenu": {
       "logOut": "Log Out"

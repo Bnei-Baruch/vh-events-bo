@@ -17,7 +17,6 @@ import getParticipants from "../services/participants.service";
 import countries from "../constants/countries";
 export default function Search(props) {
   const [participants, setParticipants] = React.useState([]);
-  const [limit, setLimit] = React.useState(10);
   const [page, setPage] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const [totalCount, setTotalCount] = React.useState(0);
@@ -28,6 +27,8 @@ export default function Search(props) {
     selectableRows: false,
     download: false,
     print: false,
+    search: false,
+    filter: false,
     pagination: true,
     responsive: "scroll",
     count: totalCount,
@@ -185,18 +186,22 @@ export default function Search(props) {
   const toggleDrawer = (id, open) => () => {
     setDrawerState({ ...drawerState, id: id, isOpen: open });
   };
+
+  const resetForm = () => {
+    document.getElementById('searchForm').reset();
+  }
   return (
-    <form onSubmit={formSubmitted} noValidate autoComplete="off">
+    <form id="searchForm" onSubmit={formSubmitted} noValidate autoComplete="off">
       <Grid container spacing={6}>
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
-            <TextField id="outlined-basic" fullWidth name="email" label={t('Search.enterEmail')} variant="outlined" required={true} /> &nbsp;
+            <TextField id="outlined-basic" fullWidth name="email" label={t('Search.enterEmail')} variant="outlined" /> &nbsp;
           </Grid>
           <Grid item xs={3}>
-            <TextField id="outlined-basic" fullWidth name="fname" label={t('Search.enterFirstName')} variant="outlined" required={true} /> &nbsp;
+            <TextField id="outlined-basic" fullWidth name="fname" label={t('Search.enterFirstName')} variant="outlined" /> &nbsp;
           </Grid>
           <Grid item xs={3}>
-            <TextField id="outlined-basic" fullWidth name="lname" label={t('Search.enterLastName')} variant="outlined" required={true} /> &nbsp;
+            <TextField id="outlined-basic" fullWidth name="lname" label={t('Search.enterLastName')} variant="outlined" /> &nbsp;
           </Grid>
           <Grid item xs={3}>
             <FormControl variant="filled" fullWidth>
@@ -240,8 +245,9 @@ export default function Search(props) {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={3}>
-            <Button variant="contained" color="primary" type={'submit'}>{t('Search.name')}</Button>
+          <Grid item xs={3} style={{display: 'flex'}}>
+            <Button variant="contained" color="primary" type={'submit'}>{t('Search.name')}</Button> &nbsp;&nbsp;
+            <Button variant="contained" color="default" onClick={resetForm} >{t('Search.reset')}</Button>
           </Grid>
         </Grid>
         <Grid xs={12}>

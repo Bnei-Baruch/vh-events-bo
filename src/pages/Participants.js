@@ -17,7 +17,6 @@ export default function Participants(props) {
   const [events, setEvents] = React.useState([]);
   const [participants, setParticipants] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [limit, setLimit] = React.useState(10);
   const [totalCount, setTotalCount] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { t } = useTranslation();
@@ -168,10 +167,7 @@ export default function Participants(props) {
     }
     getParticipants(query, lim, skip).then((res) => {
       setParticipants(res.data);
-      setTotalCount(res.totalCount)
-      if (lim > limit) {
-        setLimit(lim);
-      }
+      setTotalCount(res.totalCount);
     });
   };
 
@@ -198,7 +194,7 @@ export default function Participants(props) {
     id: "",
   });
 
-  const [selectedEvent, setSelectedEvent] = React.useState("");
+  const [selectedEvent, setSelectedEvent] = React.useState(1);
 
   const toggleDrawer = (id, open) => () => {
     setDrawerState({ ...drawerState, id: id, isOpen: open });
