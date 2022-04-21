@@ -6,9 +6,9 @@
     },
     "Analytics": {
       "name": "Analytics",
-      "TotalPaid": "Total Paid Tickets",
-      "TotalPaidWithCC": "Total CC Payments",
-      "TotalSold": "Total Tickets Sold",
+      "TotalPaid": "Total People Paid ",
+      "TotalPaidWithCC": "People Paid /CC",
+      "TotalSold": "Tickets Sold",
       "TotalParticipant": "Total Participants"
     },
     "Pariticipants": {
