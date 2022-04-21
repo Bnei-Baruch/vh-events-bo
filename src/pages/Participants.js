@@ -30,6 +30,8 @@ export default function Participants(props) {
     rowsPerPageOptions: [10, 25, 50, 100],
     rowsPerPage: rowsPerPage,
     serverSide: true,
+    filter: false,
+    search: false,
     onTableChange: (action, tableState) => {
       if (action === 'changeRowsPerPage') {
         setRowsPerPage(tableState.rowsPerPage);
