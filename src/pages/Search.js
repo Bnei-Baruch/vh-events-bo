@@ -189,6 +189,13 @@ export default function Search(props) {
 
   const resetForm = () => {
     document.getElementById('searchForm').reset();
+    document.getElementsByName('country')[0].setAttribute('select', '')
+    document.getElementsByName('country')[0].previousElementSibling.innerHTML = ""
+    document.getElementsByName('gender')[0].setAttribute('select', '')
+    document.getElementsByName('gender')[0].previousElementSibling.innerHTML = ""
+    document.getElementsByName('part-option')[0].setAttribute('select', '')
+    document.getElementsByName('part-option')[0].previousElementSibling.innerHTML = ""
+
   }
   return (
     <form id="searchForm" onSubmit={formSubmitted} noValidate autoComplete="off">
