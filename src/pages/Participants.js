@@ -12,7 +12,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import TableDrawer from "../components/TableDrawer";
 import getEvents from "../services/events.service";
-import getParticipants from "../services/participants.service";
+import getParticipants, { downloadParticipantCSV } from "../services/participants.service";
 export default function Participants(props) {
   const [events, setEvents] = React.useState([]);
   const [participants, setParticipants] = React.useState([]);
@@ -22,16 +22,20 @@ export default function Participants(props) {
   const { t } = useTranslation();
   const options = {
     selectableRows: false,
-    download: false,
     print: false,
     count: totalCount,
     responsive: "standard",
+    filter: false,
+    search: false,
+    download: true,
     pagination: true,
     rowsPerPageOptions: [10, 25, 50, 100],
     rowsPerPage: rowsPerPage,
     serverSide: true,
-    filter: false,
-    search: false,
+    onDownload: () => {
+      downloadParticipantCSV();
+      return false;
+    },
     onTableChange: (action, tableState) => {
       if (action === 'changeRowsPerPage') {
         setRowsPerPage(tableState.rowsPerPage);
