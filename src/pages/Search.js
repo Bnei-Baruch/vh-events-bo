@@ -22,6 +22,10 @@ export default function Search(props) {
   const [totalCount, setTotalCount] = React.useState(0);
   const [params, setParams] = React.useState(undefined);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [country, setCountry] = React.useState('')
+  const [gender, setGender] = React.useState('')
+  const [partoption, setPartOption] = React.useState('')
+
   const { t } = useTranslation();
   const options = {
     selectableRows: false,
@@ -189,13 +193,21 @@ export default function Search(props) {
 
   const resetForm = () => {
     document.getElementById('searchForm').reset();
-    document.getElementsByName('country')[0].setAttribute('select', '')
-    document.getElementsByName('country')[0].previousElementSibling.innerHTML = ""
-    document.getElementsByName('gender')[0].setAttribute('select', '')
-    document.getElementsByName('gender')[0].previousElementSibling.innerHTML = ""
-    document.getElementsByName('part-option')[0].setAttribute('select', '')
-    document.getElementsByName('part-option')[0].previousElementSibling.innerHTML = ""
+    setCountry('')
+    setGender('')
+    setPartOption('')
+  }
 
+  const handleCountry = (event) => {
+    setCountry(event.target.value)
+  }
+
+  const handleGender= (event) => {
+    setGender(event.target.value)
+  }
+
+  const handlePartOption = (event) => {
+    setPartOption(event.target.value)
   }
   return (
     <form id="searchForm" onSubmit={formSubmitted} noValidate autoComplete="off">
@@ -217,6 +229,8 @@ export default function Search(props) {
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
                 name="country"
+                value={country}
+                onChange={handleCountry}
               >
                 {countries.map(item => {
                   return <MenuItem value={item.ISO}>{item.label}</MenuItem>
@@ -231,6 +245,8 @@ export default function Search(props) {
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
                 name="gender"
+                value={gender}
+                onChange={handleGender}
               >
                 <MenuItem value={'male'}>{t('Search.male')}</MenuItem>
                 <MenuItem value={'female'}>{t('Search.female')}</MenuItem>
@@ -244,6 +260,8 @@ export default function Search(props) {
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
                 name="part-option"
+                value={partoption}
+                onChange={handlePartOption}
               >
                 <MenuItem value={'sp-russia'}>{t('Search.russia')}</MenuItem>
                 <MenuItem value={'sp-ukraine'}>{t('Search.ukraine')}</MenuItem>
