@@ -11,6 +11,8 @@ const options = {
   download: false,
   print: false,
   pagination: false,
+  filter: false,
+  search: false,
   responsive: "scroll",
 };
 export default function Events() {
