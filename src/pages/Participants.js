@@ -33,7 +33,17 @@ export default function Participants(props) {
     rowsPerPage: rowsPerPage,
     serverSide: true,
     onDownload: () => {
-      downloadParticipantCSV();
+      let eventId;
+      let query;
+      if (selectedEvent) {
+        eventId = selectedEvent;
+      } else if (props.location.state) {
+        eventId = props.location.state;
+      }
+      if (eventId) {
+        query = `?eventid=${eventId}`;
+      }
+      downloadParticipantCSV(query, rowsPerPage, page * rowsPerPage);
       return false;
     },
     onTableChange: (action, tableState) => {

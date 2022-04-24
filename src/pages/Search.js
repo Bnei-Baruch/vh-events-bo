@@ -13,7 +13,7 @@ import Select from '@material-ui/core/Select';
 import React from "react";
 import { useTranslation } from "react-i18next";
 import TableDrawer from "../components/TableDrawer";
-import getParticipants from "../services/participants.service";
+import getParticipants, { downloadParticipantCSV } from "../services/participants.service";
 import countries from "../constants/countries";
 export default function Search(props) {
   const [participants, setParticipants] = React.useState([]);
@@ -29,7 +29,7 @@ export default function Search(props) {
   const { t } = useTranslation();
   const options = {
     selectableRows: false,
-    download: false,
+    download: true,
     print: false,
     search: false,
     filter: false,
@@ -39,6 +39,14 @@ export default function Search(props) {
     rowsPerPageOptions: [10, 25, 50, 100],
     rowsPerPage: rowsPerPage,
     serverSide: true,
+    onDownload: () => {
+      if (params) {
+        downloadParticipantCSV(params, rowsPerPage, page * rowsPerPage);
+      } else {
+        downloadParticipantCSV(undefined, rowsPerPage, page * rowsPerPage);
+      }
+      return false;
+    },
     onTableChange: (action, tableState) => {
       if (action === 'changeRowsPerPage') {
         setRowsPerPage(tableState.rowsPerPage);
