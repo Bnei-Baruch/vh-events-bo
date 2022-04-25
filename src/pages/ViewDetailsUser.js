@@ -10,15 +10,13 @@ import {
 } from "@material-ui/core";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-// import { updateUserStatus, setUserDetails } from '../redux/actions/userActions'
 import { useTranslation } from "react-i18next";
 import { isEmpty } from "lodash";
 import Helmet from "react-helmet";
 import {
   setUserProfileDetails,
-  updateUserStatus,
 } from "../redux/actions/userActions";
-import { getMembershipStatus, getUserDetails, postUserStatus } from "../services/user.service";
+import { getMembershipStatus, getUserDetails } from "../services/user.service";
 
 const useStyles = makeStyles(() => ({
   location: {
@@ -93,7 +91,9 @@ const ViewDetailsUser = (props) => {
 
   const classes = useStyles();
   React.useEffect(() => {
-    getUserDetails(userId).then((res) => dispatch(setUserProfileDetails(res)));
+    if (userId && typeof userId === "string") {
+      getUserDetails(userId).then((res) => dispatch(setUserProfileDetails(res)));
+    }
     // eslint-disable-next-line
   }, [userId]);
 
@@ -101,9 +101,6 @@ const ViewDetailsUser = (props) => {
     if (user && user.primary_email) {
       getMembershipStatus(user?.primary_email).then((res) => setMembership(res));
     }
-    postUserStatus(userId, user?.primary_email).then((res) =>
-      dispatch(updateUserStatus(res))
-    );
     // eslint-disable-next-line
   }, [userId, user]);
 
