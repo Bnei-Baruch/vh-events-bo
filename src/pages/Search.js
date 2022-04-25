@@ -15,7 +15,10 @@ import { useTranslation } from "react-i18next";
 import TableDrawer from "../components/TableDrawer";
 import getParticipants, { downloadParticipantCSV } from "../services/participants.service";
 import countries from "../constants/countries";
-export default function Search(props) {
+import { setUserProfileDetails } from "../redux/actions/userActions";
+import { useDispatch } from "react-redux";
+export default function Search() {
+  const dispatch = useDispatch();
   const [participants, setParticipants] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
@@ -196,6 +199,9 @@ export default function Search(props) {
   }
 
   const toggleDrawer = (id, open) => () => {
+    if (!open) {
+      dispatch(setUserProfileDetails(undefined));
+    }
     setDrawerState({ ...drawerState, id: id, isOpen: open });
   };
 
