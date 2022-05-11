@@ -134,7 +134,8 @@ const CategoryIconMore = styled(ExpandMore)`
 `;
 
 const Subtitle = styled.div`
-  color: #4aa5ff;
+  color: #00B6BD;
+  font-weight: bold;
   font-size: 12px;
 `;
 
@@ -273,7 +274,7 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
           <Logo alt="Logo" src={LogoImage} />
           <Box ml={1}>
             <b>BNEI BARUCH</b>
-            <Subtitle>VIRTUAL HOME</Subtitle>
+            <Subtitle>ADMIN EVENTS</Subtitle>
           </Box>
         </Link>
       </Brand>
