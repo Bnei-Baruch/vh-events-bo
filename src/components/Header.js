@@ -18,7 +18,7 @@ import {
   IconButton as MuiIconButton,
   Toolbar,
 } from "@material-ui/core";
-
+import LanguageIcon from '@material-ui/icons/Language';
 import { Menu as MenuIcon } from "@material-ui/icons";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { CHAT_AND_NOTIFICATION_ICONS, SEARCH_BAR } from "../shared/constants";
@@ -43,6 +43,13 @@ const FlagButton = styled(MuiIconButton)`
   svg {
     width: 22px;
     height: 22px;
+  }
+  span {
+    color: #747474;
+    font-size: 14px;
+  }
+  :hover {
+    background-color: transparent !important;
   }
   @media (max-width: 600px) {
     padding: 10px !important;
@@ -119,12 +126,6 @@ const Input = styled(InputBase)`
   }
 `;
 
-const Flag = styled.img`
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-`;
-
 const languages = [
   { code: "en", name: "English", country: "gb" },
   { code: "ru", name: "Russian", country: "ru" },
@@ -153,11 +154,8 @@ function LanguageMenu() {
         onClick={toggleMenu}
         color="inherit"
       >
-        {/* Don't replace with emoji as it's not supported in Windows */}
-        <Flag
-          src={`${window.APP_CONFIG.BASE_STATIC_PATH}/img/flags/${i18next.language}.png`}
-          alt={i18next.language}
-        />
+        <LanguageIcon /> &nbsp;
+        {i18next.language?.toUpperCase()}
       </FlagButton>
       <Menu
         id="menu-appbar"
