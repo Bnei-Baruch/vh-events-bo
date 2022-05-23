@@ -12,7 +12,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import TableDrawer from "../components/TableDrawer";
 import getEvents from "../services/events.service";
-import getParticipants, { downloadParticipantCSV } from "../services/participants.service";
+import getParticipants, {
+  downloadParticipantCSV,
+} from "../services/participants.service";
 import { setUserProfileDetails } from "../redux/actions/userActions";
 import { useDispatch } from "react-redux";
 export default function Participants(props) {
@@ -50,19 +52,27 @@ export default function Participants(props) {
       return false;
     },
     onTableChange: (action, tableState) => {
-      if (action === 'changeRowsPerPage') {
+      if (action === "changeRowsPerPage") {
         setRowsPerPage(tableState.rowsPerPage);
         if (props && props.location && props.location.state) {
           const { eventId } = props.location.state;
           if (eventId) {
-            getParticipantsData(eventId, tableState.rowsPerPage, tableState.rowsPerPage * page);
+            getParticipantsData(
+              eventId,
+              tableState.rowsPerPage,
+              tableState.rowsPerPage * page
+            );
             getEvents().then((res) => {
               setEvents(res);
               setSelectedEvent(eventId);
             });
           }
         } else {
-          getParticipantsData(undefined, tableState.rowsPerPage, tableState.rowsPerPage * page);
+          getParticipantsData(
+            undefined,
+            tableState.rowsPerPage,
+            tableState.rowsPerPage * page
+          );
           getEvents().then((res) => {
             setEvents(res);
           });
@@ -72,7 +82,11 @@ export default function Participants(props) {
         if (props && props.location && props.location.state) {
           const { eventId } = props.location.state;
           if (eventId) {
-            getParticipantsData(eventId, rowsPerPage, tableState.page * rowsPerPage);
+            getParticipantsData(
+              eventId,
+              rowsPerPage,
+              tableState.page * rowsPerPage
+            );
             setPage(tableState.page);
             getEvents().then((res) => {
               setEvents(res);
@@ -80,14 +94,18 @@ export default function Participants(props) {
             });
           }
         } else {
-          getParticipantsData(undefined, rowsPerPage, tableState.page * rowsPerPage);
+          getParticipantsData(
+            undefined,
+            rowsPerPage,
+            tableState.page * rowsPerPage
+          );
           setPage(tableState.page);
           getEvents().then((res) => {
             setEvents(res);
           });
         }
       }
-    }
+    },
   };
   const columns = [
     {
@@ -135,7 +153,7 @@ export default function Participants(props) {
     },
     {
       name: "participation_option",
-      label: t('common.participation_option'),
+      label: t("common.participation_option"),
       options: {
         filter: true,
         sort: false,
@@ -254,7 +272,16 @@ export default function Participants(props) {
         </Grid>
       </Grid>
       <Grid xs={12}>
-        {participants && participants.length > 0 && <MUIDataTable data={participants.slice(participants.length - rowsPerPage, participants.length)} options={options} columns={columns} />}
+        {participants && participants.length > 0 && (
+          <MUIDataTable
+            data={participants.slice(
+              participants.length - rowsPerPage,
+              participants.length
+            )}
+            options={options}
+            columns={columns}
+          />
+        )}
         <TableDrawer toggleDrawer={toggleDrawer} drawerState={drawerState} />
       </Grid>
     </Grid>

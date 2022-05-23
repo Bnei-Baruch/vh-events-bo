@@ -13,9 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { isEmpty } from "lodash";
 import Helmet from "react-helmet";
-import {
-  setUserProfileDetails,
-} from "../redux/actions/userActions";
+import { setUserProfileDetails } from "../redux/actions/userActions";
 import { getMembershipStatus, getUserDetails } from "../services/user.service";
 
 const useStyles = makeStyles(() => ({
@@ -73,13 +71,13 @@ const active = {
   padding: "5px 10px",
   borderRadius: "5px",
   color: "white",
-}
+};
 const inactive = {
   padding: "5px 10px",
   borderRadius: "5px",
   backgroundColor: "#d70000",
   color: "white",
-}
+};
 const ViewDetailsUser = (props) => {
   const user = useSelector((state) => state.userReducer.userDetails);
 
@@ -92,14 +90,18 @@ const ViewDetailsUser = (props) => {
   const classes = useStyles();
   React.useEffect(() => {
     if (userId && typeof userId === "string") {
-      getUserDetails(userId).then((res) => dispatch(setUserProfileDetails(res)));
+      getUserDetails(userId).then((res) =>
+        dispatch(setUserProfileDetails(res))
+      );
     }
     // eslint-disable-next-line
   }, [userId]);
 
   React.useEffect(() => {
     if (user && user.primary_email) {
-      getMembershipStatus(user?.primary_email).then((res) => setMembership(res));
+      getMembershipStatus(user?.primary_email).then((res) =>
+        setMembership(res)
+      );
     }
     // eslint-disable-next-line
   }, [userId, user]);
@@ -173,7 +175,7 @@ const ViewDetailsUser = (props) => {
       defaulValue: user?.other_language_4,
     },
   ];
-  console.log(membership)
+  console.log(membership);
   return (
     <React.Fragment>
       <Helmet title={t("common.registration")} />
@@ -243,7 +245,7 @@ const ViewDetailsUser = (props) => {
                     <Typography className={classes.cardHeaderText}>
                       {t("common.membership")}
                     </Typography>
-                    <Typography >
+                    <Typography>
                       <span style={membership.membership ? active : inactive}>
                         {membership.membership ? "Active" : "Inactive"}
                       </span>

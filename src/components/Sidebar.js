@@ -134,7 +134,7 @@ const CategoryIconMore = styled(ExpandMore)`
 `;
 
 const Subtitle = styled.div`
-  color: #00B6BD;
+  color: #00b6bd;
   font-weight: bold;
   font-size: 12px;
 `;
@@ -230,7 +230,7 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
   const { t } = useTranslation();
 
   const initOpenRoutes = () => {
-    console.log('here')
+    console.log("here");
     /* Open collapse element that matches current url */
     const pathName = location.pathname;
 
@@ -250,7 +250,7 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
 
   const toggle = (index) => {
     console.log(index);
-    console.log('here')
+    console.log("here");
     // Collapse all elements
     Object.keys(openRoutes).forEach(
       (item) =>
@@ -258,7 +258,7 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
         setOpenRoutes((openRoutes) => ({ ...openRoutes, [item]: false }))
     );
 
-    console.log('here')
+    console.log("here");
 
     // Toggle selected element
     setOpenRoutes((openRoutes) => ({
@@ -315,9 +315,7 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
                   <ExternalLink href={category.path} target="_blank">
                     <Category>
                       {category.icon}
-                      <CategoryText>
-                        {t(`${category.id}.name`)}
-                      </CategoryText>
+                      <CategoryText>{t(`${category.id}.name`)}</CategoryText>
                     </Category>
                   </ExternalLink>
                 ) : (

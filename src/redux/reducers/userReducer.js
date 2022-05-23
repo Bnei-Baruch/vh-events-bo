@@ -29,9 +29,10 @@ export default createReducer(
     [setUserProfileDetails]: (state, action) => {
       return { ...state, userDetails: action.value };
     },
-    [updateUserStatus]: (state, action) => {  // eslint-disable-line
+    [updateUserStatus]: (state, action) => {
+      // eslint-disable-line
       return { ...state, userStatus: action.value };
-    }
+    },
   },
   initialState
 );

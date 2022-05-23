@@ -18,7 +18,7 @@ const Auth = (props) => {
     keycloak
       .init({ onLoad: "login-required", checkLoginIframe: false })
       .then((authenticated) => {
-        if (keycloak.realmAccess.roles.includes('mb_admin_users')) {
+        if (keycloak.realmAccess.roles.includes("mb_admin_users")) {
           setAccess(true);
         }
         keycloak.loadUserProfile().then(function () {
@@ -48,7 +48,7 @@ const Auth = (props) => {
       if (access) {
         return <>{props.children}</>;
       } else {
-        return <div>User don't have Rights to view this application</div>
+        return <div>User don't have Rights to view this application</div>;
       }
     } else {
       return (

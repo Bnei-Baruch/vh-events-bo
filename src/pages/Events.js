@@ -5,6 +5,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { EVENTS_ROUTES } from "../routes/dashboardRoutes";
+import AddIcon from "@material-ui/icons/Add";
 import getEvents from "../services/events.service";
 const options = {
   selectableRows: false,
@@ -20,8 +21,11 @@ export default function Events() {
   const [events, setEvents] = React.useState([]);
   const { t } = useTranslation();
   const navigate = (eventId) => {
-    history.push(EVENTS_ROUTES.EventsParticipants, { eventId : eventId})
-  }
+    history.push(EVENTS_ROUTES.EventsParticipants, { eventId: eventId });
+  };
+  const navigateToCreateEvent = () => {
+    history.push(EVENTS_ROUTES.CreateEvents);
+  };
   const columns = [
     {
       name: "starts_on",
@@ -77,10 +81,15 @@ export default function Events() {
         sort: false,
         customBodyRender: (value) => {
           return (
-            <Button variant="outlined" size="small" style={{ borderRadius: '10rem' }} onClick={() => navigate(value)}>
-              {t('Events.viewparticipants')}
+            <Button
+              variant="outlined"
+              size="small"
+              style={{ borderRadius: "10rem" }}
+              onClick={() => navigate(value)}
+            >
+              {t("Events.viewparticipants")}
             </Button>
-          )
+          );
         },
       },
     },
@@ -93,6 +102,18 @@ export default function Events() {
   }, []);
   return (
     <Grid container spacing={6}>
+      <Grid xs={12} style={{ textAlign: "end" }}>
+        <Button
+          onClick={navigateToCreateEvent}
+          variant="contained"
+          color="primary"
+        >
+          <AddIcon /> &nbsp; Create Event
+        </Button>
+      </Grid>
+      <br />
+      <br />
+      <br />
       <Grid xs={12}>
         <MUIDataTable data={events} options={options} columns={columns} />
       </Grid>

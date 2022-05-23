@@ -9,8 +9,11 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import PeopleIcon from '@material-ui/icons/People';
-import getEvents, { getEventsAnalytics, getEventsPaymentsAnalytics } from "../services/events.service";
+import PeopleIcon from "@material-ui/icons/People";
+import getEvents, {
+  getEventsAnalytics,
+  getEventsPaymentsAnalytics,
+} from "../services/events.service";
 
 export default function EventsAnalytics() {
   const [events, setEvents] = React.useState([]);
@@ -22,15 +25,15 @@ export default function EventsAnalytics() {
     getEvents().then((res) => {
       setEvents(res);
     });
-    getEventsPaymentsAnalytics().then(res => setPaymentAnalytics(res));
+    getEventsPaymentsAnalytics().then((res) => setPaymentAnalytics(res));
     getAnalytics();
   }, []);
 
   const getAnalytics = (eventId) => {
     getEventsAnalytics(eventId).then((res) => {
-      setAnalytics(res)
-    })
-  }
+      setAnalytics(res);
+    });
+  };
   return (
     <Grid container spacing={6}>
       <Grid container item xs={12}>
@@ -59,51 +62,161 @@ export default function EventsAnalytics() {
           </FormControl>
         </Grid>
       </Grid>
-      {analytics && <Grid container item={12} spacing={6}>
-        <Grid item xs={12} md={3}>
-          <Paper elevation={2} style={{ padding: '20px', borderRadius: '5px', height: '100%' }}>
-            <Grid container spacing={6}>
-              <Grid item xs={4} style={{ textAlign: 'center', border: '1px solid rgb(102 100 100)', borderRadius: '15px' }}><PeopleIcon style={{ height: '50px', fontSize: '40px', color: 'rgb(102 100 100)' }} /></Grid>
-              <Grid item xs={8} ><Typography variant="h6">{t('Analytics.TotalParticipant')}</Typography>
-                <Typography variant="h4">{analytics.total_participant}</Typography></Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-        {analytics && analytics.part_option_details.map((part) => (
+      {analytics && (
+        <Grid container item={12} spacing={6}>
           <Grid item xs={12} md={3}>
-            <Paper elevation={2} style={{ padding: '20px', borderRadius: '5px', height: '100%' }}>
+            <Paper
+              elevation={2}
+              style={{ padding: "20px", borderRadius: "5px", height: "100%" }}
+            >
               <Grid container spacing={6}>
-                <Grid item xs={4} style={{ textAlign: 'center', border: '1px solid rgb(102 100 100)', borderRadius: '15px' }}><PeopleIcon style={{ height: '50px', fontSize: '40px', color: 'rgb(102 100 100)' }} /></Grid>
-                <Grid item xs={8} >
-                  {part.participation_option === 'regular' && <Typography variant="h6">{t('Search.regular')}</Typography>}
-                  {part.participation_option === 'sp-ukraine' && <Typography variant="h6">{t('Search.ukraine')}</Typography>}
-                  {part.participation_option === 'sp-russia' && <Typography variant="h6">{t('Search.russia')}</Typography>}
-                  {part.participation_option === 'hh-request' && <Typography variant="h6">{t('Search.helphaver')}</Typography>}
-                  {part.participation_option !== 'regular' && 
-                  part.participation_option !== 'sp-ukraine' && 
-                  part.participation_option !== 'sp-russia' && 
-                  part.participation_option !== 'hh-request' && <Typography variant="h6">{part.participation_option}</Typography>}
-                  <Typography variant="h4">{part.count}</Typography></Grid>
+                <Grid
+                  item
+                  xs={4}
+                  style={{
+                    textAlign: "center",
+                    border: "1px solid rgb(102 100 100)",
+                    borderRadius: "15px",
+                  }}
+                >
+                  <PeopleIcon
+                    style={{
+                      height: "50px",
+                      fontSize: "40px",
+                      color: "rgb(102 100 100)",
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="h6">
+                    {t("Analytics.TotalParticipant")}
+                  </Typography>
+                  <Typography variant="h4">
+                    {analytics.total_participant}
+                  </Typography>
+                </Grid>
               </Grid>
             </Paper>
           </Grid>
-        ))}
-        {paymentAnalytics && Object.keys(paymentAnalytics).map((key) => (
-          <Grid item xs={12} md={3}>
-           <Paper elevation={2} style={{ padding: '20px', borderRadius: '5px', height: '100%' }}>
-             <Grid container spacing={6}>
-               <Grid item xs={4} style={{ textAlign: 'center', border: '1px solid rgb(102 100 100)', borderRadius: '15px' }}><PeopleIcon style={{ height: '50px', fontSize: '40px', color: 'rgb(102 100 100)' }} /></Grid>
-               <Grid item xs={8} >
-                 {key === 'total_people_paid' && <Typography variant="h6">{t('Analytics.TotalPaid')}</Typography>}
-                 {key === 'total_people_paid_with_cc' && <Typography variant="h6">{t('Analytics.TotalPaidWithCC')}</Typography>}
-                 {key === 'total_ticket_sold' && <Typography variant="h6">{t('Analytics.TotalSold')}</Typography>}
-                 <Typography variant="h4">{paymentAnalytics[key]}</Typography>
-                </Grid>
-             </Grid>
-           </Paper>
-         </Grid>
-        ))}
-      </Grid>}
+          {analytics &&
+            analytics.part_option_details.map((part) => (
+              <Grid item xs={12} md={3}>
+                <Paper
+                  elevation={2}
+                  style={{
+                    padding: "20px",
+                    borderRadius: "5px",
+                    height: "100%",
+                  }}
+                >
+                  <Grid container spacing={6}>
+                    <Grid
+                      item
+                      xs={4}
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid rgb(102 100 100)",
+                        borderRadius: "15px",
+                      }}
+                    >
+                      <PeopleIcon
+                        style={{
+                          height: "50px",
+                          fontSize: "40px",
+                          color: "rgb(102 100 100)",
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={8}>
+                      {part.participation_option === "regular" && (
+                        <Typography variant="h6">
+                          {t("Search.regular")}
+                        </Typography>
+                      )}
+                      {part.participation_option === "sp-ukraine" && (
+                        <Typography variant="h6">
+                          {t("Search.ukraine")}
+                        </Typography>
+                      )}
+                      {part.participation_option === "sp-russia" && (
+                        <Typography variant="h6">
+                          {t("Search.russia")}
+                        </Typography>
+                      )}
+                      {part.participation_option === "hh-request" && (
+                        <Typography variant="h6">
+                          {t("Search.helphaver")}
+                        </Typography>
+                      )}
+                      {part.participation_option !== "regular" &&
+                        part.participation_option !== "sp-ukraine" &&
+                        part.participation_option !== "sp-russia" &&
+                        part.participation_option !== "hh-request" && (
+                          <Typography variant="h6">
+                            {part.participation_option}
+                          </Typography>
+                        )}
+                      <Typography variant="h4">{part.count}</Typography>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+            ))}
+          {paymentAnalytics &&
+            Object.keys(paymentAnalytics).map((key) => (
+              <Grid item xs={12} md={3}>
+                <Paper
+                  elevation={2}
+                  style={{
+                    padding: "20px",
+                    borderRadius: "5px",
+                    height: "100%",
+                  }}
+                >
+                  <Grid container spacing={6}>
+                    <Grid
+                      item
+                      xs={4}
+                      style={{
+                        textAlign: "center",
+                        border: "1px solid rgb(102 100 100)",
+                        borderRadius: "15px",
+                      }}
+                    >
+                      <PeopleIcon
+                        style={{
+                          height: "50px",
+                          fontSize: "40px",
+                          color: "rgb(102 100 100)",
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={8}>
+                      {key === "total_people_paid" && (
+                        <Typography variant="h6">
+                          {t("Analytics.TotalPaid")}
+                        </Typography>
+                      )}
+                      {key === "total_people_paid_with_cc" && (
+                        <Typography variant="h6">
+                          {t("Analytics.TotalPaidWithCC")}
+                        </Typography>
+                      )}
+                      {key === "total_ticket_sold" && (
+                        <Typography variant="h6">
+                          {t("Analytics.TotalSold")}
+                        </Typography>
+                      )}
+                      <Typography variant="h4">
+                        {paymentAnalytics[key]}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+            ))}
+        </Grid>
+      )}
     </Grid>
   );
 }

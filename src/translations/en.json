@@ -93,7 +93,7 @@
         "help": "Help",
         "manual": "Manual",
         "grant": "Grant"
-    },
+      },
       "tables": {
         "event": {
           "id": "Id",
