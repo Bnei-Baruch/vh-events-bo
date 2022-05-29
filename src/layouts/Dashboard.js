@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import { spacing } from "@material-ui/system";
+import { spacing } from "@mui/system";
 import {
   Hidden,
   CssBaseline,
-  Paper as MuiPaper,
-  withWidth,
-} from "@material-ui/core";
-import { isWidthUp } from "@material-ui/core/withWidth";
+  Paper as MuiPaper
+} from "@mui/material";
+// import { isWidthUp } from "@mui/material/withWidth";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 
@@ -97,7 +96,7 @@ const Dashboard = ({ children, routes, width }) => {
       </Drawer>
       <AppContent>
         <Header onDrawerToggle={handleDrawerToggle} />
-        <MainContent p={isWidthUp("lg", width) ? 10 : 5}>
+        <MainContent p={true ? 10 : 5}>
           {children}
         </MainContent>
       </AppContent>
@@ -105,4 +104,4 @@ const Dashboard = ({ children, routes, width }) => {
   );
 };
 
-export default withWidth()(Dashboard);
+export default Dashboard;

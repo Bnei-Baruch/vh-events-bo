@@ -6,10 +6,10 @@ import {
   Paper,
   Select,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import PeopleIcon from "@material-ui/icons/People";
+import PeopleIcon from "@mui/icons-material/People";
 import getEvents, {
   getEventsAnalytics,
   getEventsPaymentsAnalytics,
@@ -54,7 +54,7 @@ export default function EventsAnalytics() {
               }}
             >
               {events.map((event) => (
-                <MenuItem value={event.id}>
+                <MenuItem key={event._id} value={event.id}>
                   <em>{event.name}</em>
                 </MenuItem>
               ))}
@@ -67,9 +67,9 @@ export default function EventsAnalytics() {
           <Grid item xs={12} md={3}>
             <Paper
               elevation={2}
-              style={{ padding: "20px", borderRadius: "5px", height: "100%" }}
+              style={{ padding: '20px', borderRadius: "5px", height: "100%" }}
             >
-              <Grid container spacing={6}>
+              <Grid container style={{alignItems: 'center'}}>
                 <Grid
                   item
                   xs={4}
@@ -87,7 +87,7 @@ export default function EventsAnalytics() {
                     }}
                   />
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={8} style={{paddingLeft: '5px'}}>
                   <Typography variant="h6">
                     {t("Analytics.TotalParticipant")}
                   </Typography>
@@ -99,8 +99,8 @@ export default function EventsAnalytics() {
             </Paper>
           </Grid>
           {analytics &&
-            analytics.part_option_details.map((part) => (
-              <Grid item xs={12} md={3}>
+            analytics.part_option_details.map((part, index) => (
+              <Grid key={index} item xs={12} md={3}>
                 <Paper
                   elevation={2}
                   style={{
@@ -109,7 +109,7 @@ export default function EventsAnalytics() {
                     height: "100%",
                   }}
                 >
-                  <Grid container spacing={6}>
+                  <Grid container style={{alignItems: 'center'}}>
                     <Grid
                       item
                       xs={4}
@@ -127,7 +127,7 @@ export default function EventsAnalytics() {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={8} style={{paddingLeft: '5px'}}>
                       {part.participation_option === "regular" && (
                         <Typography variant="h6">
                           {t("Search.regular")}
@@ -163,8 +163,8 @@ export default function EventsAnalytics() {
               </Grid>
             ))}
           {paymentAnalytics &&
-            Object.keys(paymentAnalytics).map((key) => (
-              <Grid item xs={12} md={3}>
+            Object.keys(paymentAnalytics).map((key, index) => (
+              <Grid key={index} item xs={12} md={3}>
                 <Paper
                   elevation={2}
                   style={{
@@ -173,7 +173,7 @@ export default function EventsAnalytics() {
                     height: "100%",
                   }}
                 >
-                  <Grid container spacing={6}>
+                  <Grid container style={{alignItems: 'center'}}>
                     <Grid
                       item
                       xs={4}
@@ -191,7 +191,7 @@ export default function EventsAnalytics() {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={8} style={{paddingLeft: '5px'}}>
                       {key === "total_people_paid" && (
                         <Typography variant="h6">
                           {t("Analytics.TotalPaid")}

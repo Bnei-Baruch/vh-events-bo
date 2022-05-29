@@ -7,7 +7,7 @@ import LogoImage from "../asset/logo/logo.svg";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "../vendor/perfect-scrollbar.css";
 
-import { spacing } from "@material-ui/system";
+import { spacing } from "@mui/system";
 
 import {
   Avatar,
@@ -18,9 +18,9 @@ import {
   List as MuiList,
   ListItem,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 import { sidebarRoutes as routes } from "../routes/index";
 import { EVENTS_ROOT } from "../routes/dashboardRoutes";
@@ -57,8 +57,8 @@ const List = styled(MuiList)`
 `;
 
 const Items = styled.div`
-  padding-top: ${(props) => props.theme.spacing(2.5)}px;
-  padding-bottom: ${(props) => props.theme.spacing(2.5)}px;
+  padding-top: ${(props) => props.theme.spacing(2.5)};
+  padding-bottom: ${(props) => props.theme.spacing(2.5)};
 `;
 
 const Brand = styled(ListItem)`
@@ -68,8 +68,8 @@ const Brand = styled(ListItem)`
   background-color: ${(props) => props.theme.sidebar.header.background};
   font-family: ${(props) => props.theme.typography.fontFamily};
   min-height: 56px;
-  padding-left: ${(props) => props.theme.spacing(6)}px;
-  padding-right: ${(props) => props.theme.spacing(6)}px;
+  padding-left: ${(props) => props.theme.spacing(6)};
+  padding-right: ${(props) => props.theme.spacing(6)};
   cursor: default;
 
   ${(props) => props.theme.breakpoints.up("sm")} {
@@ -86,10 +86,10 @@ const Brand = styled(ListItem)`
 `;
 
 const Category = styled(ListItem)`
-  padding-top: ${(props) => props.theme.spacing(3)}px;
-  padding-bottom: ${(props) => props.theme.spacing(3)}px;
-  padding-left: ${(props) => props.theme.spacing(6)}px;
-  padding-right: ${(props) => props.theme.spacing(5)}px;
+  padding-top: ${(props) => props.theme.spacing(3)};
+  padding-bottom: ${(props) => props.theme.spacing(3)};
+  padding-left: ${(props) => props.theme.spacing(6)};
+  padding-right: ${(props) => props.theme.spacing(5)};
   font-weight: ${(props) => props.theme.typography.fontWeightRegular};
 
   svg {
@@ -119,9 +119,9 @@ const CategoryText = styled(ListItemText)`
 
   span {
     color: ${(props) => props.theme.sidebar.color};
-    font-size: ${(props) => props.theme.typography.body1.fontSize}px;
+    font-size: ${(props) => props.theme.typography.body1.fontSize};
     font-weight: ${(props) => props.theme.sidebar.category.fontWeight};
-    padding: 0 ${(props) => props.theme.spacing(4)}px;
+    padding: 0 ${(props) => props.theme.spacing(4)};
   }
 `;
 
@@ -140,9 +140,9 @@ const Subtitle = styled.div`
 `;
 
 const Link = styled(ListItem)`
-  padding-left: ${(props) => props.theme.spacing(15)}px;
-  padding-top: ${(props) => props.theme.spacing(2)}px;
-  padding-bottom: ${(props) => props.theme.spacing(2)}px;
+  padding-left: ${(props) => props.theme.spacing(15)};
+  padding-top: ${(props) => props.theme.spacing(2)};
+  padding-bottom: ${(props) => props.theme.spacing(2)};
   margin-left: ${(props) => props.marginleft};
 
   span {
@@ -167,7 +167,7 @@ const LinkText = styled(ListItemText)`
   color: ${(props) => props.theme.sidebar.color};
   margin-left: 35px;
   span {
-    font-size: ${(props) => props.theme.typography.body1.fontSize}px;
+    font-size: ${(props) => props.theme.typography.body1.fontSize};
   }
 
   margin-top: 0;
@@ -187,8 +187,8 @@ const LinkBadge = styled(Chip)`
   span.MuiChip-label:hover {
     cursor: pointer;
     color: ${(props) => props.theme.sidebar.badge.color};
-    padding-left: ${(props) => props.theme.spacing(2)}px;
-    padding-right: ${(props) => props.theme.spacing(2)}px;
+    padding-left: ${(props) => props.theme.spacing(2)};
+    padding-right: ${(props) => props.theme.spacing(2)};
   }
 `;
 

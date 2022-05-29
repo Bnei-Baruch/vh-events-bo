@@ -1,10 +1,10 @@
-import { Button, CircularProgress, Grid, TextField } from "@material-ui/core";
+import { Button, CircularProgress, Grid, TextField } from "@mui/material";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import TableDrawer from "../components/TableDrawer";
@@ -28,13 +28,13 @@ export default function Search() {
 
   const { t } = useTranslation();
   const options = {
-    selectableRows: false,
+    selectableRows: 'none',
     download: true,
     print: false,
     search: false,
     filter: false,
     pagination: true,
-    responsive: "scroll",
+    responsive: "standard",
     count: totalCount,
     rowsPerPageOptions: [10, 25, 50, 100],
     rowsPerPage: rowsPerPage,
@@ -290,7 +290,7 @@ export default function Search() {
                 onChange={handleCountry}
               >
                 {countries.map((item) => {
-                  return <MenuItem value={item.ISO}>{item.label}</MenuItem>;
+                  return <MenuItem key={item.ISO} value={item.ISO}>{item.label}</MenuItem>;
                 })}
               </Select>
             </FormControl>
@@ -334,16 +334,16 @@ export default function Search() {
             </FormControl>
           </Grid>
           <Grid item xs={3} style={{ display: "flex" }}>
-            <Button variant="contained" color="primary" type={"submit"}>
+            <Button variant="contained" size="small" type={"submit"}>
               {t("Search.name")}
             </Button>{" "}
             &nbsp;&nbsp;
-            <Button variant="contained" color="default" onClick={resetForm}>
+            <Button variant="contained" size="small" onClick={resetForm}>
               {t("Search.reset")}
             </Button>
           </Grid>
         </Grid>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           {!loading ? (
             <MUIDataTable
               data={

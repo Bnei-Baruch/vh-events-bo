@@ -2,11 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import store from "./redux/store/index";
 import Helmet from "react-helmet";
-
-import DateFnsUtils from "@date-io/date-fns";
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { StylesProvider, jssPreset } from "@material-ui/styles";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { StylesProvider, jssPreset } from "@mui/styles";
 import { ThemeProvider } from "styled-components";
 import rtl from "jss-rtl";
 import { create } from "jss";
@@ -61,7 +60,7 @@ const App = ({ theme }) => {
         defaultTitle="Our Virtual Home"
       />
       <StylesProvider jss={jss}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
           <MuiThemeProvider
             theme={{
               ...maTheme[theme.currentTheme],
@@ -77,7 +76,7 @@ const App = ({ theme }) => {
               <Routes />
             </ThemeProvider>
           </MuiThemeProvider>
-        </MuiPickersUtilsProvider>
+          </LocalizationProvider>
       </StylesProvider>
     </Auth>
   );

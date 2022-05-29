@@ -6,7 +6,7 @@ import {
   CardHeader,
   Grid,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 export default function CreateEvent() {
   return (

@@ -1,13 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-import { Breadcrumbs, Link, Typography } from "@material-ui/core";
+import { Breadcrumbs, Link, Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   breadcrumbs: {
-    marginBottom: theme.spacing(6),
+    "& a" : {
+      textDecoration: 'none',
+    },
+    marginBottom: `${theme.spacing(6)} !important`,
     "& .MuiTypography-colorInherit": {
       color: "#1E88E5",
     },

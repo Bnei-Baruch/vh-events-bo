@@ -1,10 +1,10 @@
 import React from "react";
 import async from "../components/Async";
 import { EVENTS_ROUTES } from "./dashboardRoutes";
-import EventIcon from "@material-ui/icons/Event";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import PersonAdd from "@material-ui/icons/PersonAdd";
-import SearchIcon from "@material-ui/icons/Search";
+import EventIcon from "@mui/icons-material/Event";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import SearchIcon from "@mui/icons-material/Search";
 const EventsPage = async(() => import("../pages/Events"));
 const EventsAnalyticsPage = async(() => import("../pages/EventsAnalytics"));
 const ParticipantsPage = async(() => import("../pages/Participants"));

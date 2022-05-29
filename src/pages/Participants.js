@@ -5,7 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-} from "@material-ui/core";
+} from "@mui/material";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
 import React from "react";
@@ -26,7 +26,7 @@ export default function Participants(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { t } = useTranslation();
   const options = {
-    selectableRows: false,
+    selectableRows: 'none',
     print: false,
     count: totalCount,
     responsive: "standard",
@@ -271,7 +271,7 @@ export default function Participants(props) {
           </FormControl>
         </Grid>
       </Grid>
-      <Grid xs={12}>
+      <Grid item xs={12}>
         {participants && participants.length > 0 && (
           <MUIDataTable
             data={participants.slice(

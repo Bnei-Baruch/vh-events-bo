@@ -1,20 +1,20 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid } from "@mui/material";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { EVENTS_ROUTES } from "../routes/dashboardRoutes";
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 import getEvents from "../services/events.service";
 const options = {
-  selectableRows: false,
+  selectableRows: 'none',
   download: false,
   print: false,
   pagination: false,
   filter: false,
   search: false,
-  responsive: "scroll",
+  responsive: "standard",
 };
 export default function Events() {
   const history = useHistory();
@@ -102,7 +102,7 @@ export default function Events() {
   }, []);
   return (
     <Grid container spacing={6}>
-      <Grid xs={12} style={{ textAlign: "end" }}>
+      <Grid item xs={12} style={{ textAlign: "end" }}>
         <Button
           onClick={navigateToCreateEvent}
           variant="contained"
@@ -114,7 +114,7 @@ export default function Events() {
       <br />
       <br />
       <br />
-      <Grid xs={12}>
+      <Grid item xs={12}>
         <MUIDataTable data={events} options={options} columns={columns} />
       </Grid>
     </Grid>
