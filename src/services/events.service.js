@@ -20,4 +20,8 @@ export const getEventsPaymentsAnalytics = () => {
     .get(`${window.APP_CONFIG.VH_API_BASE_URL}/pay/orders/count/0522`)
     .then((res) => res.data.data);
 };
+
+export const createEvent = body => {
+  return axios.post(`${window.APP_CONFIG.VH_API_BASE_URL}/events/v1/event`, body).then(res => res.data.data);
+}
 export default getEvents;
