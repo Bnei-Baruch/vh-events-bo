@@ -1,7 +1,7 @@
 import React from "react";
-import { makeStyles, Tooltip } from "@material-ui/core";
-import HelpIcon from "@material-ui/icons/HelpOutline";
-
+import { Tooltip } from "@mui/material";
+import HelpIcon from "@mui/icons-material/HelpOutline";
+import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
   helpIcon: {
     position: "absolute",

@@ -33,6 +33,15 @@
     "UserMenu": {
       "logOut": "Log Out"
     },
+    "CreateEvent": {
+      "name": "Crate Name",
+      "eventName": "Event Name",
+      "eventSlug": "Event Slug",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "create": "Create",
+      "discard": "Discard"
+    },
     "common": {
       "participation_option": "Participation Option",
       "date": "Date",
@@ -93,7 +102,7 @@
         "help": "Help",
         "manual": "Manual",
         "grant": "Grant"
-    },
+      },
       "tables": {
         "event": {
           "id": "Id",

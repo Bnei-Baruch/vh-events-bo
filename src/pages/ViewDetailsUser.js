@@ -3,66 +3,67 @@ import { withRouter } from "react-router";
 import {
   Grid,
   Typography,
-  makeStyles,
   Card,
   CardContent as MuiCardContent,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { isEmpty } from "lodash";
 import Helmet from "react-helmet";
-import {
-  setUserProfileDetails,
-} from "../redux/actions/userActions";
+import { setUserProfileDetails } from "../redux/actions/userActions";
 import { getMembershipStatus, getUserDetails } from "../services/user.service";
 
 const useStyles = makeStyles(() => ({
   location: {
-    width: "120px",
-    fontSize: 16,
-    marginBottom: "1rem",
+    width: "120px !important",
+    fontSize: '16 !important',
+    marginBottom: "1rem !important",
   },
   cardHeaderText: {
-    fontSize: 16,
-    fontWeight: 600,
-    color: "#000000",
-    marginBottom: "2rem",
-    width: "fit-content",
+    fontSize: '16 !important',
+    fontWeight: '600 !important',
+    color: "#000000 !important",
+    marginBottom: "2rem !important",
+    width: "fit-content !important",
   },
   langCommunication: {
     fontSize: 16,
     fontWeight: 600,
-    color: "#000000",
-    marginTop: "4rem",
-    width: "fit-content",
+    color: "#000000 !important",
+    marginTop: "4rem !important",
+    width: "fit-content !important",
   },
   regionalContainer: {
-    height: "100%",
+    height: "100% !important",
   },
   status: {
-    borderRadius: "5rem",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "6rem",
-    height: "28px",
-    color: "white",
+    borderRadius: "5rem !important",
+    display: "flex !important",
+    justifyContent: "center !important",
+    alignItems: "center !important",
+    width: "6rem !important",
+    height: "28px !important",
+    color: "white !important",
   },
   typography: {
     fontSize: 16,
-    marginBottom: "1rem",
+    marginBottom: "1rem !important",
   },
   contentPadding: {
-    padding: "15px",
+    padding: "15px !important",
+    '& .MuiPaper-elevation': {
+      boxShadow: '0 0 14px 0 rgba(53,64,82,.05) !important'
+    }
   },
 }));
 
 const CardContent = styled(MuiCardContent)`
-  display: flex;
-  flex-directon: row
-  justify-content: space-between;
+  display: flex !important;
+  flex-directon: row !important;
+  justify-content: space-between !important;
 `;
 const textFieldText = {
   fontSize: "16px",
@@ -73,13 +74,13 @@ const active = {
   padding: "5px 10px",
   borderRadius: "5px",
   color: "white",
-}
+};
 const inactive = {
   padding: "5px 10px",
   borderRadius: "5px",
   backgroundColor: "#d70000",
   color: "white",
-}
+};
 const ViewDetailsUser = (props) => {
   const user = useSelector((state) => state.userReducer.userDetails);
 
@@ -92,14 +93,18 @@ const ViewDetailsUser = (props) => {
   const classes = useStyles();
   React.useEffect(() => {
     if (userId && typeof userId === "string") {
-      getUserDetails(userId).then((res) => dispatch(setUserProfileDetails(res)));
+      getUserDetails(userId).then((res) =>
+        dispatch(setUserProfileDetails(res))
+      );
     }
     // eslint-disable-next-line
   }, [userId]);
 
   React.useEffect(() => {
     if (user && user.primary_email) {
-      getMembershipStatus(user?.primary_email).then((res) => setMembership(res));
+      getMembershipStatus(user?.primary_email).then((res) =>
+        setMembership(res)
+      );
     }
     // eslint-disable-next-line
   }, [userId, user]);
@@ -173,7 +178,7 @@ const ViewDetailsUser = (props) => {
       defaulValue: user?.other_language_4,
     },
   ];
-  console.log(membership)
+  console.log(membership);
   return (
     <React.Fragment>
       <Helmet title={t("common.registration")} />
@@ -190,7 +195,7 @@ const ViewDetailsUser = (props) => {
         <Grid item xs={12}>
           <Grid container direction="column" spacing={6}>
             <Grid item xs={12}>
-              <Card>
+              <Card raised={true}>
                 <CardContent>
                   <Grid container direction="column">
                     <Typography className={classes.cardHeaderText}>
@@ -237,13 +242,13 @@ const ViewDetailsUser = (props) => {
         <Grid item xs={12}>
           <Grid container direction="column" spacing={6}>
             <Grid item xs={12}>
-              <Card>
+              <Card raised={true}>
                 <CardContent>
                   <Grid container direction="column">
                     <Typography className={classes.cardHeaderText}>
                       {t("common.membership")}
                     </Typography>
-                    <Typography >
+                    <Typography>
                       <span style={membership.membership ? active : inactive}>
                         {membership.membership ? "Active" : "Inactive"}
                       </span>
@@ -255,7 +260,7 @@ const ViewDetailsUser = (props) => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Card className={classes.regionalContainer}>
+          <Card raised={true} className={classes.regionalContainer}>
             <CardContent>
               <Grid container>
                 <Grid container direction="column">

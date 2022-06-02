@@ -6,7 +6,7 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import _ from "lodash";
 import { Bell, MessageSquare, Search as SearchIcon } from "react-feather";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {
   Badge,
   Grid,
@@ -17,10 +17,10 @@ import {
   AppBar as MuiAppBar,
   IconButton as MuiIconButton,
   Toolbar,
-} from "@material-ui/core";
-import LanguageIcon from '@material-ui/icons/Language';
-import { Menu as MenuIcon } from "@material-ui/icons";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+} from "@mui/material";
+import LanguageIcon from "@mui/icons-material/Language";
+import { Menu as MenuIcon } from "@mui/icons-material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { CHAT_AND_NOTIFICATION_ICONS, SEARCH_BAR } from "../shared/constants";
 import { setLoggedInUser } from "../redux/actions/userActions";
 import ModalWindow from "./ModalWindow";
@@ -44,10 +44,8 @@ const FlagButton = styled(MuiIconButton)`
     width: 22px;
     height: 22px;
   }
-  span {
-    color: #747474;
-    font-size: 14px;
-  }
+  color: #747474;
+  font-size: 14px;
   :hover {
     background-color: transparent !important;
   }
@@ -61,10 +59,7 @@ const UserIconButton = styled(MuiIconButton)`
   &:hover {
     border-radius: 10px !important;
   }
-  span,
-  label {
-    color: #5a5a5a;
-  }
+  color: #5a5a5a;
   svg {
     width: 30px;
     height: 30px;
@@ -118,10 +113,10 @@ const Input = styled(InputBase)`
 
   > input {
     color: ${(props) => props.theme.header.search.color};
-    padding-top: ${(props) => props.theme.spacing(2.5)}px;
-    padding-right: ${(props) => props.theme.spacing(2.5)}px;
-    padding-bottom: ${(props) => props.theme.spacing(2.5)}px;
-    padding-left: ${(props) => props.theme.spacing(12)}px;
+    padding-top: ${(props) => props.theme.spacing(2.5)};
+    padding-right: ${(props) => props.theme.spacing(2.5)};
+    padding-bottom: ${(props) => props.theme.spacing(2.5)};
+    padding-left: ${(props) => props.theme.spacing(12)};
     width: 160px;
   }
 `;
