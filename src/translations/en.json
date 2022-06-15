@@ -2,7 +2,9 @@
   "translation": {
     "Events": {
       "name": "Events",
-      "viewparticipants": "View Participants"
+      "viewparticipants": "View Participants",
+      "delete_event_confirmation_title": "Delete Event",
+      "delete_event_confirmation_message": "Are you sure you want to delete this event?"
     },
     "Analytics": {
       "name": "Analytics",
@@ -34,7 +36,8 @@
       "logOut": "Log Out"
     },
     "CreateEvent": {
-      "name": "Create Name",
+      "name": "Create Event",
+      "edit": "Edit Event",
       "eventName": "Event Name",
       "eventSlug": "Event Slug",
       "startDate": "Start Date",
@@ -42,7 +45,15 @@
       "create": "Create",
       "discard": "Discard"
     },
+    "ModifyEvent": {
+      "name": "Modify Event"
+    },
     "common": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "agree": "Agree",
+      "disagree": "Disagree",
+      "participant": "Participant",
       "participation_option": "Participation Option",
       "date": "Date",
       "details": "Details",
