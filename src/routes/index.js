@@ -22,12 +22,23 @@ const dashboardRoutes = [
   },
   {
     path: EVENTS_ROUTES.CreateEvents,
-    id: "CreateEvents",
+    id: "CreateEvent",
     icon: <EventIcon />,
     enableHeader: true,
     breadcrumbs: [
       { name: "Events", path: EVENTS_ROUTES.Events },
-      { name: "CreateEvents", path: EVENTS_ROUTES.CreateEvents },
+      { name: "CreateEvent", path: EVENTS_ROUTES.CreateEvents },
+    ],
+    component: CreateEventsPage,
+  },
+  {
+    path: EVENTS_ROUTES.ModifyEvents,
+    id: "ModifyEvent",
+    icon: <EventIcon />,
+    enableHeader: true,
+    breadcrumbs: [
+      { name: "Events", path: EVENTS_ROUTES.Events },
+      { name: "ModifyEvent", path: EVENTS_ROUTES.ModifyEvents },
     ],
     component: CreateEventsPage,
   },

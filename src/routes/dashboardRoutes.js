@@ -4,6 +4,7 @@ export const ROOT = "/";
 export const EVENTS_ROUTES = {
   Events: `${EVENTS_ROOT}`,
   CreateEvents: `${EVENTS_ROOT}/create`,
+  ModifyEvents: `${EVENTS_ROOT}/modify`,
   EventsAnalytics: `${EVENTS_ROOT}/analytics`,
   EventsParticipants: `${EVENTS_ROOT}/participants`,
   EventsSearch: `${EVENTS_ROOT}/search`,

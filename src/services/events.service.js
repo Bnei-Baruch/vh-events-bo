@@ -22,6 +22,14 @@ export const getEventsPaymentsAnalytics = () => {
 };
 
 export const createEvent = body => {
-  return axios.post(`${window.APP_CONFIG.VH_API_BASE_URL}/events/v1/event`, body).then(res => res.data.data);
+  return axios.post(`${window.APP_CONFIG.VH_API_BASE_URL}/events/v1/event`, body).then(res => res);
+}
+
+export const editEvent = (id, body) => {
+  return axios.patch(`${window.APP_CONFIG.VH_API_BASE_URL}/events/v1/event/${id}`, body).then(res => res);
+}
+
+export const deleteEvent = eventId => {
+  return axios.delete(`${window.APP_CONFIG.VH_API_BASE_URL}/events/v1/event/${eventId}`).then(res => res);
 }
 export default getEvents;
