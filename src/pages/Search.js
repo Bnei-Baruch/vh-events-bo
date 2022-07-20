@@ -28,7 +28,7 @@ export default function Search() {
 
   const { t } = useTranslation();
   const options = {
-    selectableRows: 'none',
+    selectableRows: "none",
     download: true,
     print: false,
     search: false,
@@ -290,7 +290,11 @@ export default function Search() {
                 onChange={handleCountry}
               >
                 {countries.map((item) => {
-                  return <MenuItem key={item.ISO} value={item.ISO}>{item.label}</MenuItem>;
+                  return (
+                    <MenuItem key={item.ISO} value={item.ISO}>
+                      {item.label}
+                    </MenuItem>
+                  );
                 })}
               </Select>
             </FormControl>

@@ -67,9 +67,9 @@ export default function EventsAnalytics() {
           <Grid item xs={12} md={3}>
             <Paper
               elevation={2}
-              style={{ padding: '20px', borderRadius: "5px", height: "100%" }}
+              style={{ padding: "20px", borderRadius: "5px", height: "100%" }}
             >
-              <Grid container style={{alignItems: 'center'}}>
+              <Grid container style={{ alignItems: "center" }}>
                 <Grid
                   item
                   xs={4}
@@ -87,7 +87,7 @@ export default function EventsAnalytics() {
                     }}
                   />
                 </Grid>
-                <Grid item xs={8} style={{paddingLeft: '5px'}}>
+                <Grid item xs={8} style={{ paddingLeft: "5px" }}>
                   <Typography variant="h6">
                     {t("Analytics.TotalParticipant")}
                   </Typography>
@@ -109,7 +109,7 @@ export default function EventsAnalytics() {
                     height: "100%",
                   }}
                 >
-                  <Grid container style={{alignItems: 'center'}}>
+                  <Grid container style={{ alignItems: "center" }}>
                     <Grid
                       item
                       xs={4}
@@ -127,7 +127,7 @@ export default function EventsAnalytics() {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={8} style={{paddingLeft: '5px'}}>
+                    <Grid item xs={8} style={{ paddingLeft: "5px" }}>
                       {part.participation_option === "regular" && (
                         <Typography variant="h6">
                           {t("Search.regular")}
@@ -173,7 +173,7 @@ export default function EventsAnalytics() {
                     height: "100%",
                   }}
                 >
-                  <Grid container style={{alignItems: 'center'}}>
+                  <Grid container style={{ alignItems: "center" }}>
                     <Grid
                       item
                       xs={4}
@@ -191,7 +191,7 @@ export default function EventsAnalytics() {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={8} style={{paddingLeft: '5px'}}>
+                    <Grid item xs={8} style={{ paddingLeft: "5px" }}>
                       {key === "total_people_paid" && (
                         <Typography variant="h6">
                           {t("Analytics.TotalPaid")}

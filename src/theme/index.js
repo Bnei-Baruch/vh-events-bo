@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme } from "@mui/material/styles";
 import variants from "./variants";
 import typography from "./typography";
 import overrides from "./overrides";
@@ -7,7 +7,7 @@ import props from "./props";
 import shadows from "./shadows";
 
 const theme = (variant) =>
-createTheme(
+  createTheme(
     {
       spacing: 4,
       breakpoints,

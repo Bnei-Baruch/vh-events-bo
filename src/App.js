@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import store from "./redux/store/index";
 import Helmet from "react-helmet";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { StylesProvider, jssPreset } from "@mui/styles";
 import { ThemeProvider } from "styled-components";
 import rtl from "jss-rtl";
@@ -60,7 +60,7 @@ const App = ({ theme }) => {
         defaultTitle="Our Virtual Home"
       />
       <StylesProvider jss={jss}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <MuiThemeProvider
             theme={{
               ...maTheme[theme.currentTheme],
@@ -76,7 +76,7 @@ const App = ({ theme }) => {
               <Routes />
             </ThemeProvider>
           </MuiThemeProvider>
-          </LocalizationProvider>
+        </LocalizationProvider>
       </StylesProvider>
     </Auth>
   );

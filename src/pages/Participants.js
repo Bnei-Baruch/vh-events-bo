@@ -26,7 +26,7 @@ export default function Participants(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { t } = useTranslation();
   const options = {
-    selectableRows: 'none',
+    selectableRows: "none",
     print: false,
     count: totalCount,
     responsive: "standard",

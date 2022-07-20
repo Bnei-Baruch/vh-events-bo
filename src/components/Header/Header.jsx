@@ -7,8 +7,8 @@ import { Breadcrumbs, Link, Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   breadcrumbs: {
-    "& a" : {
-      textDecoration: 'none',
+    "& a": {
+      textDecoration: "none",
     },
     marginBottom: `${theme.spacing(6)} !important`,
     "& .MuiTypography-colorInherit": {

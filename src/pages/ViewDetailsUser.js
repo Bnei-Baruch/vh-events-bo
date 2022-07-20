@@ -19,12 +19,12 @@ import { getMembershipStatus, getUserDetails } from "../services/user.service";
 const useStyles = makeStyles(() => ({
   location: {
     width: "120px !important",
-    fontSize: '16 !important',
+    fontSize: "16 !important",
     marginBottom: "1rem !important",
   },
   cardHeaderText: {
-    fontSize: '16 !important',
-    fontWeight: '600 !important',
+    fontSize: "16 !important",
+    fontWeight: "600 !important",
     color: "#000000 !important",
     marginBottom: "2rem !important",
     width: "fit-content !important",
@@ -54,9 +54,9 @@ const useStyles = makeStyles(() => ({
   },
   contentPadding: {
     padding: "15px !important",
-    '& .MuiPaper-elevation': {
-      boxShadow: '0 0 14px 0 rgba(53,64,82,.05) !important'
-    }
+    "& .MuiPaper-elevation": {
+      boxShadow: "0 0 14px 0 rgba(53,64,82,.05) !important",
+    },
   },
 }));
 
