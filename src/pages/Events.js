@@ -1,9 +1,9 @@
 import { Button, Grid } from "@mui/material";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
 import React from "react";
@@ -13,7 +13,7 @@ import { EVENTS_ROUTES } from "../routes/dashboardRoutes";
 import AddIcon from "@mui/icons-material/Add";
 import getEvents, { deleteEvent } from "../services/events.service";
 const options = {
-  selectableRows: 'none',
+  selectableRows: "none",
   download: false,
   print: false,
   pagination: false,
@@ -39,27 +39,29 @@ export default function Events() {
   const editEvent = (eventId) => {
     const eventData = events.find((e) => e.id === eventId);
     history.push(EVENTS_ROUTES.ModifyEvents, { event: eventData });
-  }
+  };
 
   const showDeleteConfirmation = (eventDetail) => {
     setDeleteConfirmation(true);
     setSelectedEventId(eventDetail);
-  }
+  };
 
   const handleClose = () => {
     setDeleteConfirmation(false);
     setSelectedEventId(null);
-  }
+  };
 
   const deleteEventItem = () => {
-    deleteEvent(selectedEventId).then(() => {
-      setDeleteConfirmation(false);
-      setSelectedEventId(null);
-      getEvents();
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+    deleteEvent(selectedEventId)
+      .then(() => {
+        setDeleteConfirmation(false);
+        setSelectedEventId(null);
+        getEvents();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const columns = [
     {
       name: "starts_on",
@@ -67,9 +69,7 @@ export default function Events() {
       options: {
         filter: false,
         sort: false,
-        customBodyRender: (value) => (
-          <>{moment(value).format("DD-MM-YYYY")} </>
-        ),
+        customBodyRender: (value) => <>{moment(value).format("DD-MM-YYYY")} </>,
       },
     },
     {
@@ -78,9 +78,7 @@ export default function Events() {
       options: {
         filter: false,
         sort: false,
-        customBodyRender: (value) => (
-          <>{moment(value).format("DD-MM-YYYY")} </>
-        ),
+        customBodyRender: (value) => <>{moment(value).format("DD-MM-YYYY")} </>,
       },
     },
     {
@@ -118,7 +116,7 @@ export default function Events() {
             <Button
               variant="outlined"
               size="small"
-              style={{ borderRadius: "10rem", minWidth: '150px' }}
+              style={{ borderRadius: "10rem", minWidth: "150px" }}
               onClick={() => navigateToParticipant(value)}
             >
               {t("Events.viewparticipants")}
@@ -134,23 +132,26 @@ export default function Events() {
         filter: true,
         sort: false,
         customBodyRender: (value) => {
-          return (<div style={{minWidth: '150px'}}>
-            <Button
-              variant="contained"
-              size="small"
-              style={{ borderRadius: "10rem" }}
-              onClick={() => editEvent(value)}
-            >
-              {t("common.edit")}
-            </Button> &nbsp;
-            <Button
-              variant="outlined"
-              size="small"
-              style={{ borderRadius: "10rem" }}
-              onClick={() => showDeleteConfirmation(value)}
-            >
-              {t("common.delete")}
-            </Button></div>
+          return (
+            <div style={{ minWidth: "150px" }}>
+              <Button
+                variant="contained"
+                size="small"
+                style={{ borderRadius: "10rem" }}
+                onClick={() => editEvent(value)}
+              >
+                {t("common.edit")}
+              </Button>{" "}
+              &nbsp;
+              <Button
+                variant="outlined"
+                size="small"
+                style={{ borderRadius: "10rem" }}
+                onClick={() => showDeleteConfirmation(value)}
+              >
+                {t("common.delete")}
+              </Button>
+            </div>
           );
         },
       },
@@ -159,7 +160,7 @@ export default function Events() {
 
   React.useEffect(() => {
     getEvents().then((res) => {
-      setEvents(res);
+      setEvents(res.filter((res) => !res.deleted));
     });
   }, []);
   return (
@@ -194,10 +195,14 @@ export default function Events() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>{t('common.disagree')}</Button>
-          <Button onClick={deleteEventItem} autoFocus variant="contained"
-            size="small">
-            {t('common.agree')}
+          <Button onClick={handleClose}>{t("common.disagree")}</Button>
+          <Button
+            onClick={deleteEventItem}
+            autoFocus
+            variant="contained"
+            size="small"
+          >
+            {t("common.agree")}
           </Button>
         </DialogActions>
       </Dialog>

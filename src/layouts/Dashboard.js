@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
 import { spacing } from "@mui/system";
-import {
-  Hidden,
-  CssBaseline,
-  Paper as MuiPaper
-} from "@mui/material";
+import { Hidden, CssBaseline, Paper as MuiPaper } from "@mui/material";
 // import { isWidthUp } from "@mui/material/withWidth";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
@@ -96,9 +92,7 @@ const Dashboard = ({ children, routes, width }) => {
       </Drawer>
       <AppContent>
         <Header onDrawerToggle={handleDrawerToggle} />
-        <MainContent p={true ? 10 : 5}>
-          {children}
-        </MainContent>
+        <MainContent p={true ? 10 : 5}>{children}</MainContent>
       </AppContent>
     </Root>
   );

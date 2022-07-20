@@ -43,7 +43,16 @@
       "startDate": "Start Date",
       "endDate": "End Date",
       "create": "Create",
-      "discard": "Discard"
+      "discard": "Discard",
+      "confirmedDate": "Confirmed Date",
+      "registrationOpen": "Registration Open",
+      "eventPublished": "Event Published",
+      "english": "English",
+      "hebrew": "Hebrew",
+      "russian": "Russian",
+      "spanish": "Spanish",
+      "title": "Title",
+      "description": "Description"
     },
     "ModifyEvent": {
       "name": "Modify Event"
