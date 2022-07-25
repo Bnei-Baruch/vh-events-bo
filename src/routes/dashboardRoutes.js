@@ -7,5 +7,6 @@ export const EVENTS_ROUTES = {
   ModifyEvents: `${EVENTS_ROOT}/modify`,
   EventsAnalytics: `${EVENTS_ROOT}/analytics`,
   EventsParticipants: `${EVENTS_ROOT}/participants`,
+  AddEventsParticipants: `${EVENTS_ROOT}/participants/add`,
   EventsSearch: `${EVENTS_ROOT}/search`,
 };

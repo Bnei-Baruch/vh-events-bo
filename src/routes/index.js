@@ -10,6 +10,7 @@ const EventsAnalyticsPage = async(() => import("../pages/EventsAnalytics"));
 const ParticipantsPage = async(() => import("../pages/Participants"));
 const SearchPage = async(() => import("../pages/Search"));
 const CreateEventsPage = async(() => import("../pages/CreateEvent"));
+const AddParticipant = async(() => import("../pages/AddParticipant"));
 
 const dashboardRoutes = [
   {
@@ -59,6 +60,20 @@ const dashboardRoutes = [
       { name: "Pariticipants", path: EVENTS_ROUTES.EventsParticipants },
     ],
     component: ParticipantsPage,
+  },
+  {
+    path: EVENTS_ROUTES.AddEventsParticipants,
+    id: "AddEventsParticipants",
+    icon: <PersonAdd />,
+    enableHeader: true,
+    breadcrumbs: [
+      { name: "Pariticipants", path: EVENTS_ROUTES.Pariticipants },
+      {
+        name: "AddEventsParticipants",
+        path: EVENTS_ROUTES.AddEventsParticipants,
+      },
+    ],
+    component: AddParticipant,
   },
   {
     path: EVENTS_ROUTES.EventsSearch,

@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField,
 } from "@mui/material";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
@@ -12,19 +13,36 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import TableDrawer from "../components/TableDrawer";
 import getEvents from "../services/events.service";
+import AddIcon from "@mui/icons-material/Add";
+import SearchIcon from "@mui/icons-material/Search";
 import getParticipants, {
   downloadParticipantCSV,
 } from "../services/participants.service";
 import { setUserProfileDetails } from "../redux/actions/userActions";
 import { useDispatch } from "react-redux";
+import SearchDrawer from "../components/SearchDrawer";
+import { setEventList } from "../redux/actions/eventActions";
+import { useHistory } from "react-router-dom";
 export default function Participants(props) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const history = useHistory();
+
   const [events, setEvents] = React.useState([]);
   const [participants, setParticipants] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [totalCount, setTotalCount] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const { t } = useTranslation();
+  const [searchEmail, setSearchEmail] = React.useState("");
+  const [drawerState, setDrawerState] = React.useState({
+    isOpen: false,
+    id: "",
+  });
+  const [searchDrawerState, setsearchDrawerState] = React.useState({
+    isOpen: false,
+    id: "",
+  });
+  const [selectedEvent, setSelectedEvent] = React.useState(1);
   const options = {
     selectableRows: "none",
     print: false,
@@ -215,6 +233,7 @@ export default function Participants(props) {
         getParticipantsData(eventId, rowsPerPage, 0);
         getEvents().then((res) => {
           setEvents(res);
+          dispatch(setEventList(res));
           setSelectedEvent(eventId);
         });
       }
@@ -222,16 +241,11 @@ export default function Participants(props) {
       getParticipantsData(undefined, rowsPerPage, 0);
       getEvents().then((res) => {
         setEvents(res);
+        dispatch(setEventList(res));
       });
     }
     // eslint-disable-next-line
   }, [props]);
-  const [drawerState, setDrawerState] = React.useState({
-    isOpen: false,
-    id: "",
-  });
-
-  const [selectedEvent, setSelectedEvent] = React.useState(1);
 
   const toggleDrawer = (id, open) => () => {
     if (!open) {
@@ -239,10 +253,41 @@ export default function Participants(props) {
     }
     setDrawerState({ ...drawerState, id: id, isOpen: open });
   };
+  const navigateTo = (path) => {
+    history.push(path);
+  };
+  const toggleSearchDrawer = (id, open) => () => {
+    setsearchDrawerState({ ...searchDrawerState, id: id, isOpen: open });
+  };
   return (
     <Grid container spacing={6}>
       <Grid container item xs={12}>
-        <Grid item xs={12} md={9}></Grid>
+        <Grid item xs={12} md={9}>
+          {/* <Button
+            variant="contained"
+            onClick={() => navigateTo("/admin/events/participants/add")}
+          >
+            <AddIcon /> {t("Pariticipants.addParticipant")}
+          </Button>
+          &nbsp; &nbsp;
+          <TextField
+            id="outlined-basic"
+            placeholder="enter email to search"
+            value={searchEmail}
+            onChange={(e) => setSearchEmail(e.target.value)}
+            variant="outlined"
+            inputProps={{ style: { padding: "8px 15px", minWidth: "150px" } }}
+          />{" "}
+          &nbsp;
+          <Button
+            variant="outlined"
+            onClick={() =>
+              setsearchDrawerState({ ...searchDrawerState, isOpen: true })
+            }
+          >
+            <SearchIcon />
+          </Button> */}
+        </Grid>
         <Grid item xs={12} md={3}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel id="demo-simple-select-outlined-label">
@@ -283,6 +328,10 @@ export default function Participants(props) {
           />
         )}
         <TableDrawer toggleDrawer={toggleDrawer} drawerState={drawerState} />
+        <SearchDrawer
+          toggleDrawer={toggleSearchDrawer}
+          drawerState={searchDrawerState}
+        />
       </Grid>
     </Grid>
   );
