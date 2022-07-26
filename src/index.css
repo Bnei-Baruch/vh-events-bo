@@ -1,3 +1,7 @@
 .MuiListItem-button.active:hover {
   background-color: #10151c !important;
 }
+.Mui-disabled {
+  color: #10151c !important;
+  -webkit-text-fill-color: #10151c !important;
+}

@@ -6,7 +6,7 @@ const SearchDrawer = ({ toggleDrawer, drawerState }) => {
     <Drawer
       anchor="right"
       open={drawerState?.isOpen}
-      onClose={toggleDrawer({ id: null }, false)}
+      onClose={() => toggleDrawer({ id: null }, false)}
       PaperProps={{
         style: {
           width: "40%",
@@ -14,7 +14,7 @@ const SearchDrawer = ({ toggleDrawer, drawerState }) => {
         },
       }}
     >
-     Hello
+      Hello
     </Drawer>
   );
 };

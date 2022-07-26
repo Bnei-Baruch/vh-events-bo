@@ -86,7 +86,6 @@ export default function CreateEvent(props) {
   React.useEffect(() => {
     if (props && props.location && props.location.state) {
       const { event } = props && props.location && props.location.state;
-      console.log(event);
       setIsEdit(true);
       setEventData({
         id: event.id,

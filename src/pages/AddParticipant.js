@@ -45,11 +45,12 @@ export default function AddParticipant() {
                   <MenuItem value="">
                     <em>All</em>
                   </MenuItem>
-                  {events && events.map((event, index) => (
-                    <MenuItem key={index} value={event.id}>
-                      <em>{event.name}</em>
-                    </MenuItem>
-                  ))}
+                  {events &&
+                    events.map((event, index) => (
+                      <MenuItem key={index} value={event.id}>
+                        <em>{event.name}</em>
+                      </MenuItem>
+                    ))}
                 </Select>
               </FormControl>
             </Grid>
