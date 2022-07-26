@@ -63,6 +63,12 @@
       "name": "Modify Event"
     },
     "common": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "confirmed": "Status: Confirmed",
+      "pending": "Status: Pending",
+      "participation_confirmation": "Participation Confirmation",
+      "remove_participant": "Remove Participant",
       "edit": "Edit",
       "delete": "Delete",
       "agree": "Agree",
@@ -107,6 +113,7 @@
       "stateRegion": "State / Region",
       "streetAddress": "Street Address",
       "action": "Action",
+      "pariticpationOption": "Participation Option",
       "searchFieldsLabels": {
         "name": "Name",
         "email": "Email",

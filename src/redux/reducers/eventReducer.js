@@ -2,13 +2,12 @@ import { createReducer } from "redux-act";
 import { setEventList } from "../actions/eventActions";
 
 const initialState = {
-    events: undefined,
+  events: undefined,
 };
 
 export default createReducer(
   {
     [setEventList]: (state, action) => {
-      console.log(action)
       return { ...state, events: action.event };
     },
   },

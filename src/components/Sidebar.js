@@ -230,7 +230,6 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
   const { t } = useTranslation();
 
   const initOpenRoutes = () => {
-    console.log("here");
     /* Open collapse element that matches current url */
     const pathName = location.pathname;
 
@@ -249,17 +248,12 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
   const [openRoutes, setOpenRoutes] = useState(() => initOpenRoutes());
 
   const toggle = (index) => {
-    console.log(index);
-    console.log("here");
     // Collapse all elements
     Object.keys(openRoutes).forEach(
       (item) =>
         openRoutes[index] ||
         setOpenRoutes((openRoutes) => ({ ...openRoutes, [item]: false }))
     );
-
-    console.log("here");
-
     // Toggle selected element
     setOpenRoutes((openRoutes) => ({
       ...openRoutes,
@@ -285,7 +279,6 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
               <React.Fragment key={index}>
                 {category.children ? (
                   <React.Fragment key={index}>
-                    {console.log(openRoutes)}
                     <SidebarCategory
                       isOpen={!openRoutes[index]}
                       isCollapsable

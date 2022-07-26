@@ -32,4 +32,21 @@ export const downloadParticipantCSV = (query, limit = 10, skip) => {
     });
 };
 
+export const updateParticipantStatus = (id, data) => {
+  return axios
+    .patch(
+      `${window.APP_CONFIG.VH_API_BASE_URL}/events/v1/participation-status/${id}`,
+      data
+    )
+    .then((res) => res.data);
+};
+
+export const deletePariticpant = (id) => {
+  return axios
+    .delete(
+      `${window.APP_CONFIG.VH_API_BASE_URL}/events/v1/participation-status/${id}`
+    )
+    .then((res) => res.data);
+};
+
 export default getParticipants;

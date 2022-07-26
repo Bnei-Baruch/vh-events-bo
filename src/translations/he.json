@@ -57,6 +57,12 @@
       "description": "Description"
     },
     "common": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "confirmed": "Status: Confirmed",
+      "pending": "Status: Pending",
+      "participation_confirmation": "Participation Confirmation",
+      "remove_participant": "Remove Participant",
       "participation_option": "Participation Option",
       "date": "Date",
       "details": "Details",
@@ -96,6 +102,7 @@
       "stateRegion": "State / Region",
       "streetAddress": "Street Address",
       "action": "Action",
+      "pariticpationOption": "Participation Option",
       "searchFieldsLabels": {
         "name": "Name",
         "email": "Email",

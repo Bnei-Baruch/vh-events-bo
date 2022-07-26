@@ -5,7 +5,6 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
 import moment from "moment";
 import MUIDataTable from "mui-datatables";
@@ -37,6 +36,7 @@ export default function Participants(props) {
   const [drawerState, setDrawerState] = React.useState({
     isOpen: false,
     id: "",
+    participationDetail: {},
   });
   const [searchDrawerState, setsearchDrawerState] = React.useState({
     isOpen: false,
@@ -205,7 +205,7 @@ export default function Participants(props) {
               variant="outlined"
               size="small"
               style={{ borderRadius: "10px" }}
-              onClick={toggleDrawer(value, true)}
+              onClick={() => toggleDrawer(value, true)}
             >
               {t("Pariticipants.showDetail")}
             </Button>
@@ -218,7 +218,7 @@ export default function Participants(props) {
   const getParticipantsData = (slug, lim, skip) => {
     let query = undefined;
     if (slug) {
-      query = `?eventid=${slug}`;
+      query = `eventid=${slug}`;
     }
     getParticipants(query, lim, skip).then((res) => {
       setParticipants(res.data);
@@ -247,11 +247,26 @@ export default function Participants(props) {
     // eslint-disable-next-line
   }, [props]);
 
-  const toggleDrawer = (id, open) => () => {
+  const toggleDrawer = (id, open, refreshData = false) => {
     if (!open) {
       dispatch(setUserProfileDetails(undefined));
     }
-    setDrawerState({ ...drawerState, id: id, isOpen: open });
+    let participationDetail = id
+      ? participants.find((item) => item.part_keycloak_id === id)
+      : undefined;
+    setDrawerState({
+      ...drawerState,
+      id: id,
+      participationDetail: participationDetail,
+      isOpen: open,
+    });
+    if (refreshData) {
+      let eventId =
+        props.location && props.location.state && props.location.state.eventId
+          ? props.location.state.eventId
+          : undefined;
+      getParticipantsData(eventId, rowsPerPage, rowsPerPage * page);
+    }
   };
   const navigateTo = (path) => {
     history.push(path);
@@ -317,7 +332,7 @@ export default function Participants(props) {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {participants && participants.length > 0 && (
+        {participants && participants.length >= 0 && (
           <MUIDataTable
             data={participants.slice(
               participants.length - rowsPerPage,

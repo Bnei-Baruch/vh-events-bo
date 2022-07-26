@@ -165,7 +165,7 @@ export default function Search() {
               variant="outlined"
               size="small"
               style={{ borderRadius: "10px" }}
-              onClick={toggleDrawer(value, true)}
+              onClick={() => toggleDrawer(value, true)}
             >
               {t("Pariticipants.showDetail")}
             </Button>

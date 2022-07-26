@@ -97,7 +97,6 @@ var _default = (0, _reduxAct.createReducer)(
     _createReducer,
     _userActions.setKeycloakData,
     function (state, action) {
-      console.log(action);
       return _objectSpread({}, state, {
         keycloak: action.keycloak,
       });

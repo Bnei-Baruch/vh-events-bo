@@ -10,5 +10,5 @@ export default combineReducers({
   profileReducer,
   settingsReducer,
   userReducer,
-  eventReducer
+  eventReducer,
 });
