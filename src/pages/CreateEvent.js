@@ -86,6 +86,7 @@ export default function CreateEvent(props) {
   React.useEffect(() => {
     if (props && props.location && props.location.state) {
       const { event } = props && props.location && props.location.state;
+      console.log(event);
       setIsEdit(true);
       setEventData({
         id: event.id,
@@ -93,6 +94,35 @@ export default function CreateEvent(props) {
         slug: event.slug,
         eventStartDate: new Date(event.starts_on),
         eventEndDate: new Date(event.ends_on),
+        date_confirmed:
+          event.date_confirmed !== undefined ? event.date_confirmed : true,
+        registration_status:
+          event.registration_status !== undefined &&
+          event.registration_status === "open"
+            ? true
+            : false,
+        published:
+          event.event_published !== undefined ? event.event_published : true,
+        content: event.content
+          ? event.content
+          : {
+              en: {
+                title: "",
+                description: "",
+              },
+              ru: {
+                title: "",
+                description: "",
+              },
+              he: {
+                title: "",
+                description: "",
+              },
+              es: {
+                title: "",
+                description: "",
+              },
+            },
       });
     }
     // eslint-disable-next-line

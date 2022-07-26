@@ -13,7 +13,12 @@
     },
     "Pariticipants": {
       "name": "Participants",
-      "showDetail": "Show Detail"
+      "showDetail": "Show Detail",
+      "addParticipant": "Add Participant",
+      "search": "Search"
+    },
+    "AddEventsParticipants": {
+      "name": "Add Event Participants"
     },
     "Search": {
       "name": "Search",
