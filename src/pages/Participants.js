@@ -264,7 +264,7 @@ export default function Participants(props) {
       let eventId =
         props.location && props.location.state && props.location.state.eventId
           ? props.location.state.eventId
-          : undefined;
+          : selectedEvent;
       getParticipantsData(eventId, rowsPerPage, rowsPerPage * page);
     }
   };
