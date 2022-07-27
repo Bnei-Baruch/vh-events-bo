@@ -326,7 +326,7 @@ const ViewDetailsUser = (props) => {
                             }
                             label={`${
                               participationDetails.confirmed
-                                ? +t("common.confirmed")
+                                ? t("common.confirmed")
                                 : t("common.pending")
                             }`}
                           />
