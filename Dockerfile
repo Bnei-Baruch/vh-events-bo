@@ -6,7 +6,7 @@
 ### https://gitlab.bbdev.team/vh/ci_templates/-/blob/master/Dockerfile-react        ###
 ###                                                                                 ###
 #######################################################################################
-FROM node:14.12.0-stretch as builder
+FROM node:16-bullseye as builder
 # this will be passed in as  --build-arg, when building docker image
 # default value will be localhost
 ARG PUBLIC_URL=""
