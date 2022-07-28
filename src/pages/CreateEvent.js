@@ -1,4 +1,6 @@
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import {
   Button,
   Card,
@@ -161,6 +163,7 @@ export default function CreateEvent(props) {
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label={t("CreateEvent.startDate")}
                     name="starts_on"
@@ -172,8 +175,10 @@ export default function CreateEvent(props) {
                     )}
                     required
                   />
+                  </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12} md={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label={t("CreateEvent.endDate")}
                     name="ends_on"
@@ -185,6 +190,7 @@ export default function CreateEvent(props) {
                     )}
                     required
                   />
+                </LocalizationProvider>
                 </Grid>
               </Grid>
               <Grid item xs={12} style={{ marginTop: "15px" }}>
