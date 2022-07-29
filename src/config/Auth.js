@@ -18,7 +18,6 @@ const Auth = (props) => {
     keycloak
       .init({ onLoad: "login-required", checkLoginIframe: false })
       .then((authenticated) => {
-        console.log(keycloak.realmAccess.roles)
         if (keycloak.realmAccess.roles.includes("mb_admin_users")) {
           setAccess(true);
         }
@@ -41,8 +40,6 @@ const Auth = (props) => {
         });
       });
   }, [dispatch]);
-  console.log(auth)
-  console.log(props)
 
   if (auth.keycloak) {
     if (auth.authenticated) {

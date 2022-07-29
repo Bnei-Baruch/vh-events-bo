@@ -81,7 +81,9 @@ export default function Participants(props) {
               tableState.rowsPerPage * page
             );
             getEvents().then((res) => {
-              setEvents(res);
+              if (res && res.length > 0) {
+                setEvents(res.filter((res) => !res.deleted));
+              }
               setSelectedEvent(eventId);
             });
           }
@@ -92,7 +94,9 @@ export default function Participants(props) {
             tableState.rowsPerPage * page
           );
           getEvents().then((res) => {
-            setEvents(res);
+            if (res && res.length > 0) {
+              setEvents(res.filter((res) => !res.deleted));
+            }
           });
         }
       }
@@ -107,7 +111,9 @@ export default function Participants(props) {
             );
             setPage(tableState.page);
             getEvents().then((res) => {
-              setEvents(res);
+              if (res && res.length > 0) {
+                setEvents(res.filter((res) => !res.deleted));
+              }
               setSelectedEvent(eventId);
             });
           }
@@ -119,7 +125,9 @@ export default function Participants(props) {
           );
           setPage(tableState.page);
           getEvents().then((res) => {
-            setEvents(res);
+            if (res && res.length > 0) {
+              setEvents(res.filter((res) => !res.deleted));
+            }
           });
         }
       }
@@ -232,7 +240,9 @@ export default function Participants(props) {
       if (eventId) {
         getParticipantsData(eventId, rowsPerPage, 0);
         getEvents().then((res) => {
-          setEvents(res);
+          if (res && res.length > 0) {
+            setEvents(res.filter((res) => !res.deleted));
+          }
           dispatch(setEventList(res));
           setSelectedEvent(eventId);
         });
@@ -240,7 +250,9 @@ export default function Participants(props) {
     } else {
       getParticipantsData(undefined, rowsPerPage, 0);
       getEvents().then((res) => {
-        setEvents(res);
+        if (res && res.length > 0) {
+          setEvents(res.filter((res) => !res.deleted));
+        }
         dispatch(setEventList(res));
       });
     }

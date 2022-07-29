@@ -56,7 +56,7 @@ export default function Events() {
       .then(() => {
         setDeleteConfirmation(false);
         setSelectedEventId(null);
-        getEvents();
+        getAllEvents();
       })
       .catch((err) => {
         console.log(err);
@@ -158,10 +158,16 @@ export default function Events() {
     },
   ];
 
-  React.useEffect(() => {
+  const getAllEvents = () => {
     getEvents().then((res) => {
-      setEvents(res.filter((res) => !res.deleted));
+      if (res && res.length > 0) {
+        setEvents(res.filter((res) => !res.deleted));
+      }
     });
+  };
+
+  React.useEffect(() => {
+    getAllEvents();
   }, []);
   return (
     <Grid container spacing={6}>
