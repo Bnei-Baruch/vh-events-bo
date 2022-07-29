@@ -23,7 +23,9 @@ export default function EventsAnalytics() {
   const { t } = useTranslation();
   React.useEffect(() => {
     getEvents().then((res) => {
-      setEvents(res);
+      if (res && res.length > 0) {
+        setEvents(res.filter((res) => !res.deleted));
+      }
     });
     getEventsPaymentsAnalytics().then((res) => setPaymentAnalytics(res));
     getAnalytics();

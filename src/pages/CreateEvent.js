@@ -1,6 +1,6 @@
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import {
   Button,
   Card,
@@ -163,34 +163,34 @@ export default function CreateEvent(props) {
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label={t("CreateEvent.startDate")}
-                    name="starts_on"
-                    value={eventData.eventStartDate}
-                    minDate={new Date("2017-01-01")}
-                    onChange={(date) => setData("eventStartDate", date)}
-                    renderInput={(params) => (
-                      <TextField {...params} fullWidth />
-                    )}
-                    required
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      label={t("CreateEvent.startDate")}
+                      name="starts_on"
+                      value={eventData.eventStartDate}
+                      minDate={new Date("2017-01-01")}
+                      onChange={(date) => setData("eventStartDate", date)}
+                      renderInput={(params) => (
+                        <TextField {...params} fullWidth />
+                      )}
+                      required
+                    />
                   </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label={t("CreateEvent.endDate")}
-                    name="ends_on"
-                    value={eventData.eventEndDate}
-                    onChange={(date) => setData("eventEndDate", date)}
-                    minDate={new Date("2017-01-01")}
-                    renderInput={(params) => (
-                      <TextField {...params} fullWidth />
-                    )}
-                    required
-                  />
-                </LocalizationProvider>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      label={t("CreateEvent.endDate")}
+                      name="ends_on"
+                      value={eventData.eventEndDate}
+                      onChange={(date) => setData("eventEndDate", date)}
+                      minDate={new Date("2017-01-01")}
+                      renderInput={(params) => (
+                        <TextField {...params} fullWidth />
+                      )}
+                      required
+                    />
+                  </LocalizationProvider>
                 </Grid>
               </Grid>
               <Grid item xs={12} style={{ marginTop: "15px" }}>

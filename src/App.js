@@ -58,21 +58,21 @@ const App = ({ theme }) => {
         defaultTitle="Our Virtual Home"
       />
       <StylesProvider jss={jss}>
-          <MuiThemeProvider
+        <MuiThemeProvider
+          theme={{
+            ...maTheme[theme.currentTheme],
+            direction: i18n.dir(i18n.language),
+          }}
+        >
+          <ThemeProvider
             theme={{
               ...maTheme[theme.currentTheme],
               direction: i18n.dir(i18n.language),
             }}
           >
-            <ThemeProvider
-              theme={{
-                ...maTheme[theme.currentTheme],
-                direction: i18n.dir(i18n.language),
-              }}
-            >
-              <Routes />
-            </ThemeProvider>
-          </MuiThemeProvider>
+            <Routes />
+          </ThemeProvider>
+        </MuiThemeProvider>
       </StylesProvider>
     </Auth>
   );
