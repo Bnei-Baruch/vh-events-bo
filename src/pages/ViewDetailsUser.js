@@ -129,10 +129,12 @@ function TabPanel(props) {
 }
 const ViewDetailsUser = (props) => {
   const user = useSelector((state) => state.userReducer.userDetails);
+  const keycloak = useSelector((state) => state.userReducer.keycloak);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [membership, setMembership] = React.useState({});
   const [value, setValue] = React.useState(0);
+  const [editRight, setEditRight] = React.useState(false);
   const [participationDetails, setParticipationDetails] = React.useState();
 
   const handleChange = (event, newValue) => {
@@ -162,6 +164,12 @@ const ViewDetailsUser = (props) => {
     }
     // eslint-disable-next-line
   }, [userId, user]);
+
+  React.useEffect(() => {
+    if (keycloak.realmAccess.roles.includes("mb_admin_events_edit")) {
+      setEditRight(true);
+    }
+  }, [keycloak]);
 
   if (isEmpty(user)) {
     return <></>;
@@ -298,6 +306,7 @@ const ViewDetailsUser = (props) => {
                                 <FormControlLabel
                                   value={item.value}
                                   key={item.value}
+                                  disabled={!editRight}
                                   control={<Radio />}
                                   label={item.label}
                                 />
@@ -313,6 +322,7 @@ const ViewDetailsUser = (props) => {
                         </Typography>
                         <FormGroup>
                           <FormControlLabel
+                            disabled={!editRight}
                             control={
                               <Switch
                                 checked={participationDetails.confirmed}
@@ -336,23 +346,27 @@ const ViewDetailsUser = (props) => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12}>
-                <Button
-                  variant="outlined"
-                  onClick={() => props.toggleDrawer({ id: null }, false)}
-                >
-                  {t("common.cancel")}
-                </Button>{" "}
-                &nbsp; &nbsp;
-                <Button variant="contained" onClick={() => updateStatus()}>
-                  {t("common.save")}
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <Button variant="text" onClick={() => deletePart()}>
-                  {t("common.remove_participant")}
-                </Button>
-              </Grid>
+              {editRight && (
+                <Grid item xs={12}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => props.toggleDrawer({ id: null }, false)}
+                  >
+                    {t("common.cancel")}
+                  </Button>{" "}
+                  &nbsp; &nbsp;
+                  <Button variant="contained" onClick={() => updateStatus()}>
+                    {t("common.save")}
+                  </Button>
+                </Grid>
+              )}
+              {editRight && (
+                <Grid item xs={12}>
+                  <Button variant="text" onClick={() => deletePart()}>
+                    {t("common.remove_participant")}
+                  </Button>
+                </Grid>
+              )}
             </Grid>
           </TabPanel>
           <TabPanel value={value} index={1}>
