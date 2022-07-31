@@ -19,7 +19,7 @@ export default function EventsAnalytics() {
   const [events, setEvents] = React.useState([]);
   const [analytics, setAnalytics] = React.useState(null);
   const [paymentAnalytics, setPaymentAnalytics] = React.useState(null);
-  const [selectedEvent, setSelectedEvent] = React.useState(1);
+  const [selectedEvent, setSelectedEvent] = React.useState("");
   const { t } = useTranslation();
   React.useEffect(() => {
     getEvents().then((res) => {
