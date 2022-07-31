@@ -42,7 +42,7 @@ export default function Participants(props) {
     isOpen: false,
     id: "",
   });
-  const [selectedEvent, setSelectedEvent] = React.useState(1);
+  const [selectedEvent, setSelectedEvent] = React.useState("");
   const options = {
     selectableRows: "none",
     print: false,
@@ -72,8 +72,11 @@ export default function Participants(props) {
     onTableChange: (action, tableState) => {
       if (action === "changeRowsPerPage") {
         setRowsPerPage(tableState.rowsPerPage);
-        if (props && props.location && props.location.state) {
-          const { eventId } = props.location.state;
+        if (
+          (props && props.location && props.location.state) ||
+          selectedEvent
+        ) {
+          const { eventId } = selectedEvent || props.location.state;
           if (eventId) {
             getParticipantsData(
               eventId,
@@ -101,8 +104,11 @@ export default function Participants(props) {
         }
       }
       if (action === "changePage") {
-        if (props && props.location && props.location.state) {
-          const { eventId } = props.location.state;
+        if (
+          (props && props.location && props.location.state) ||
+          selectedEvent
+        ) {
+          const { eventId } = selectedEvent || props.location.state;
           if (eventId) {
             getParticipantsData(
               eventId,
@@ -286,6 +292,7 @@ export default function Participants(props) {
   const toggleSearchDrawer = (id, open) => () => {
     setsearchDrawerState({ ...searchDrawerState, id: id, isOpen: open });
   };
+  console.log(selectedEvent);
   return (
     <Grid container spacing={6}>
       <Grid container item xs={12}>
@@ -346,10 +353,14 @@ export default function Participants(props) {
       <Grid item xs={12}>
         {participants && participants.length >= 0 && (
           <MUIDataTable
-            data={participants.slice(
-              participants.length - rowsPerPage,
-              participants.length
-            )}
+            data={
+              totalCount > rowsPerPage
+                ? participants.slice(
+                    participants.length - rowsPerPage,
+                    participants.length
+                  )
+                : participants
+            }
             options={options}
             columns={columns}
           />
