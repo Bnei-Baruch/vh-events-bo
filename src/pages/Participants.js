@@ -76,7 +76,10 @@ export default function Participants(props) {
           (props && props.location && props.location.state) ||
           selectedEvent
         ) {
-          const { eventId } = selectedEvent || props.location.state;
+          const eventId =
+            selectedEvent || (props.location && props.location.state)
+              ? props.location.state.eventId
+              : undefined;
           if (eventId) {
             getParticipantsData(
               eventId,
@@ -108,7 +111,10 @@ export default function Participants(props) {
           (props && props.location && props.location.state) ||
           selectedEvent
         ) {
-          const { eventId } = selectedEvent || props.location.state;
+          const eventId =
+            selectedEvent || (props.location && props.location.state)
+              ? props.location.state.eventId
+              : undefined;
           if (eventId) {
             getParticipantsData(
               eventId,
@@ -292,7 +298,7 @@ export default function Participants(props) {
   const toggleSearchDrawer = (id, open) => () => {
     setsearchDrawerState({ ...searchDrawerState, id: id, isOpen: open });
   };
-  console.log(selectedEvent);
+
   return (
     <Grid container spacing={6}>
       <Grid container item xs={12}>
