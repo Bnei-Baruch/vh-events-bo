@@ -14,13 +14,19 @@ import getEvents, {
   getEventsAnalytics,
   getEventsPaymentsAnalytics,
 } from "../services/events.service";
+import { setSelectedEventId } from "../redux/actions/eventActions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function EventsAnalytics() {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const [events, setEvents] = React.useState([]);
   const [analytics, setAnalytics] = React.useState(null);
   const [paymentAnalytics, setPaymentAnalytics] = React.useState(null);
-  const [selectedEvent, setSelectedEvent] = React.useState("");
-  const { t } = useTranslation();
+
+  const eventId = useSelector((state) => state.eventReducer.eventId);
+
   React.useEffect(() => {
     getEvents().then((res) => {
       if (res && res.length > 0) {
@@ -28,6 +34,10 @@ export default function EventsAnalytics() {
       }
     });
     getEventsPaymentsAnalytics().then((res) => setPaymentAnalytics(res));
+    if (eventId) {
+      getAnalytics(eventId);
+      return;
+    }
     getAnalytics();
   }, []);
 
@@ -49,10 +59,10 @@ export default function EventsAnalytics() {
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
               label="event"
-              value={selectedEvent}
+              value={eventId}
               onChange={(e) => {
                 getAnalytics(e.target.value);
-                setSelectedEvent(e.target.value);
+                dispatch(setSelectedEventId(e.target.value));
               }}
             >
               {events.map((event) => (

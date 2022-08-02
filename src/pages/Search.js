@@ -213,11 +213,22 @@ export default function Search() {
     getParticipantsData(params, rowsPerPage, page * rowsPerPage);
   };
 
-  const toggleDrawer = (id, open) => () => {
+  const toggleDrawer = (id, open, refreshData = false) => {
     if (!open) {
       dispatch(setUserProfileDetails(undefined));
     }
-    setDrawerState({ ...drawerState, id: id, isOpen: open });
+    let participationDetail = id
+      ? participants.find((item) => item.part_keycloak_id === id)
+      : undefined;
+    setDrawerState({
+      ...drawerState,
+      id: id,
+      participationDetail: participationDetail,
+      isOpen: open,
+    });
+    if (refreshData) {
+      getParticipantsData(params, rowsPerPage, page * rowsPerPage);
+    }
   };
 
   const resetForm = () => {
@@ -352,10 +363,12 @@ export default function Search() {
             <MUIDataTable
               data={
                 participants && participants.length > 0
-                  ? participants.slice(
-                      participants.length - rowsPerPage,
-                      participants.length
-                    )
+                  ? totalCount > rowsPerPage
+                    ? participants.slice(
+                        participants.length - rowsPerPage,
+                        participants.length
+                      )
+                    : participants
                   : []
               }
               options={options}
