@@ -18,21 +18,26 @@ import getParticipants, {
   downloadParticipantCSV,
 } from "../services/participants.service";
 import { setUserProfileDetails } from "../redux/actions/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchDrawer from "../components/SearchDrawer";
-import { setEventList } from "../redux/actions/eventActions";
+import {
+  setEventList,
+  setSelectedEventId,
+} from "../redux/actions/eventActions";
 import { useHistory } from "react-router-dom";
 export default function Participants(props) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const history = useHistory();
 
-  const [events, setEvents] = React.useState([]);
-  const [participants, setParticipants] = React.useState([]);
+  const eventId = useSelector((state) => state.eventReducer.eventId);
+
   const [page, setPage] = React.useState(0);
+  const [events, setEvents] = React.useState([]);
   const [totalCount, setTotalCount] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [searchEmail, setSearchEmail] = React.useState("");
+  const [participants, setParticipants] = React.useState([]);
   const [drawerState, setDrawerState] = React.useState({
     isOpen: false,
     id: "",
@@ -42,7 +47,7 @@ export default function Participants(props) {
     isOpen: false,
     id: "",
   });
-  const [selectedEvent, setSelectedEvent] = React.useState("");
+
   const options = {
     selectableRows: "none",
     print: false,
@@ -55,14 +60,9 @@ export default function Participants(props) {
     rowsPerPageOptions: [10, 25, 50, 100],
     rowsPerPage: rowsPerPage,
     serverSide: true,
+    page: page,
     onDownload: () => {
-      let eventId;
       let query;
-      if (selectedEvent) {
-        eventId = selectedEvent;
-      } else if (props.location.state) {
-        eventId = props.location.state;
-      }
       if (eventId) {
         query = `?eventid=${eventId}`;
       }
@@ -72,14 +72,7 @@ export default function Participants(props) {
     onTableChange: (action, tableState) => {
       if (action === "changeRowsPerPage") {
         setRowsPerPage(tableState.rowsPerPage);
-        if (
-          (props && props.location && props.location.state) ||
-          selectedEvent
-        ) {
-          const eventId =
-            selectedEvent || (props.location && props.location.state)
-              ? props.location.state.eventId
-              : undefined;
+        if (eventId) {
           if (eventId) {
             getParticipantsData(
               eventId,
@@ -90,7 +83,6 @@ export default function Participants(props) {
               if (res && res.length > 0) {
                 setEvents(res.filter((res) => !res.deleted));
               }
-              setSelectedEvent(eventId);
             });
           }
         } else {
@@ -107,14 +99,7 @@ export default function Participants(props) {
         }
       }
       if (action === "changePage") {
-        if (
-          (props && props.location && props.location.state) ||
-          selectedEvent
-        ) {
-          const eventId =
-            selectedEvent || (props.location && props.location.state)
-              ? props.location.state.eventId
-              : undefined;
+        if (eventId) {
           if (eventId) {
             getParticipantsData(
               eventId,
@@ -126,7 +111,6 @@ export default function Participants(props) {
               if (res && res.length > 0) {
                 setEvents(res.filter((res) => !res.deleted));
               }
-              setSelectedEvent(eventId);
             });
           }
         } else {
@@ -247,8 +231,7 @@ export default function Participants(props) {
   };
 
   React.useEffect(() => {
-    if (props && props.location && props.location.state) {
-      const { eventId } = props.location.state;
+    if (eventId) {
       if (eventId) {
         getParticipantsData(eventId, rowsPerPage, 0);
         getEvents().then((res) => {
@@ -256,7 +239,6 @@ export default function Participants(props) {
             setEvents(res.filter((res) => !res.deleted));
           }
           dispatch(setEventList(res));
-          setSelectedEvent(eventId);
         });
       }
     } else {
@@ -269,7 +251,7 @@ export default function Participants(props) {
       });
     }
     // eslint-disable-next-line
-  }, [props]);
+  }, [eventId]);
 
   const toggleDrawer = (id, open, refreshData = false) => {
     if (!open) {
@@ -285,10 +267,6 @@ export default function Participants(props) {
       isOpen: open,
     });
     if (refreshData) {
-      let eventId =
-        props.location && props.location.state && props.location.state.eventId
-          ? props.location.state.eventId
-          : selectedEvent;
       getParticipantsData(eventId, rowsPerPage, rowsPerPage * page);
     }
   };
@@ -337,11 +315,11 @@ export default function Participants(props) {
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
               label="events"
-              value={selectedEvent}
+              value={eventId}
               onChange={(e) => {
                 getParticipantsData(e.target.value, rowsPerPage, 0);
                 setPage(0);
-                setSelectedEvent(e.target.value);
+                dispatch(setSelectedEventId(e.target.value));
               }}
             >
               <MenuItem value="">

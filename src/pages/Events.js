@@ -12,6 +12,8 @@ import { useHistory } from "react-router-dom";
 import { EVENTS_ROUTES } from "../routes/dashboardRoutes";
 import AddIcon from "@mui/icons-material/Add";
 import getEvents, { deleteEvent } from "../services/events.service";
+import { useDispatch } from "react-redux";
+import { setSelectedEventId } from "../redux/actions/eventActions";
 const options = {
   selectableRows: "none",
   download: false,
@@ -24,12 +26,15 @@ const options = {
 export default function Events() {
   const history = useHistory();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const [events, setEvents] = React.useState([]);
   const [deleteConfirmation, setDeleteConfirmation] = React.useState(false);
-  const [selectedEventId, setSelectedEventId] = React.useState(null);
+  const [selectedEvent, setSelectedEvent] = React.useState(null);
 
   const navigateToParticipant = (eventId) => {
-    history.push(EVENTS_ROUTES.EventsParticipants, { eventId: eventId });
+    dispatch(setSelectedEventId(eventId));
+    history.push(EVENTS_ROUTES.EventsParticipants);
   };
 
   const navigateToCreateEvent = () => {
@@ -43,19 +48,19 @@ export default function Events() {
 
   const showDeleteConfirmation = (eventDetail) => {
     setDeleteConfirmation(true);
-    setSelectedEventId(eventDetail);
+    setSelectedEvent(eventDetail);
   };
 
   const handleClose = () => {
     setDeleteConfirmation(false);
-    setSelectedEventId(null);
+    setSelectedEvent(null);
   };
 
   const deleteEventItem = () => {
-    deleteEvent(selectedEventId)
+    deleteEvent(selectedEvent)
       .then(() => {
         setDeleteConfirmation(false);
-        setSelectedEventId(null);
+        setSelectedEvent(null);
         getAllEvents();
       })
       .catch((err) => {
