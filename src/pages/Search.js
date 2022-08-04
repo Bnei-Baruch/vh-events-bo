@@ -13,20 +13,29 @@ import getParticipants, {
 } from "../services/participants.service";
 import countries from "../constants/countries";
 import { setUserProfileDetails } from "../redux/actions/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import getEvents from "../services/events.service";
+import {
+  setEventList,
+  setSelectedEventId,
+} from "../redux/actions/eventActions";
 export default function Search() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [participants, setParticipants] = React.useState([]);
+
+  const events = useSelector((state) => state.eventReducer.events);
+  const eventId = useSelector((state) => state.eventReducer.eventId);
+
   const [page, setPage] = React.useState(0);
+  const [gender, setGender] = React.useState("");
+  const [country, setCountry] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [totalCount, setTotalCount] = React.useState(0);
   const [params, setParams] = React.useState(undefined);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [country, setCountry] = React.useState("");
-  const [gender, setGender] = React.useState("");
   const [partoption, setPartOption] = React.useState("");
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [participants, setParticipants] = React.useState([]);
 
-  const { t } = useTranslation();
   const options = {
     selectableRows: "none",
     download: true,
@@ -187,6 +196,8 @@ export default function Search() {
         setLoading(false);
       })
       .catch(() => {
+        setParticipants([]);
+        setTotalCount(0);
         setLoading(false);
       });
   };
@@ -249,6 +260,21 @@ export default function Search() {
   const handlePartOption = (event) => {
     setPartOption(event.target.value);
   };
+
+  const getAllEvents = () => {
+    getEvents().then((res) => {
+      if (res && res.length > 0) {
+        let events = res.filter((res) => !res.deleted);
+        dispatch(setEventList(events));
+      }
+    });
+  };
+
+  React.useEffect(() => {
+    if (!events) {
+      getAllEvents();
+    }
+  }, []);
   return (
     <form
       id="searchForm"
@@ -345,6 +371,28 @@ export default function Search() {
                   {t("Search.helphaver")}
                 </MenuItem>
                 <MenuItem value={"regular"}>{t("Search.regular")}</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+            <FormControl variant="filled" fullWidth>
+              <InputLabel id="demo-simple-select-filled-label">
+                {t("Events.name")}
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-filled-label"
+                id="demo-simple-select-filled"
+                name="event_id"
+                value={eventId}
+                onChange={(e) => dispatch(setSelectedEventId(e.target.value))}
+              >
+                {events.map((item) => {
+                  return (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Grid>
