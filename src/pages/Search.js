@@ -382,11 +382,11 @@ export default function Search() {
               <Select
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
-                name="event_id"
+                name="eventid"
                 value={eventId}
                 onChange={(e) => dispatch(setSelectedEventId(e.target.value))}
               >
-                {events.map((item) => {
+                {events && events.map((item) => {
                   return (
                     <MenuItem key={item.id} value={item.id}>
                       {item.name}
