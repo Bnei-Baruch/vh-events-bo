@@ -7,7 +7,10 @@ export const setEventList = createAction(SET_EVENTS_LIST, (event) => ({
 
 export const setSelectedEventId = createAction(
   SET_SELECTED_EVENT_ID,
-  (event) => ({
-    event,
-  })
+  (event) => {
+    localStorage.setItem("eventId", event);
+    return {
+      event,
+    };
+  }
 );
