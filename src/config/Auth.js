@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import ErrorLogin from "../views/ErrorLogin";
 import LoadingScreen from "../views/LoadingScreen";
 import { fetchProfile } from "../redux/actions/profileActions";
+import { setSelectedEventId } from "../redux/actions/eventActions";
 
 const Auth = (props) => {
   const [auth, setAuth] = useState({ keycloak: null, authenticated: false });
@@ -20,6 +21,10 @@ const Auth = (props) => {
       .then((authenticated) => {
         if (keycloak.realmAccess.roles.includes("mb_admin_users")) {
           setAccess(true);
+        }
+        const eventId = localStorage.getItem("eventId");
+        if (eventId) {
+          dispatch(setSelectedEventId(eventId));
         }
         keycloak.loadUserProfile().then(function () {
           dispatch(setKeycloakData(keycloak));

@@ -174,7 +174,7 @@ export default function EventsAnalytics() {
                 </Paper>
               </Grid>
             ))}
-          {paymentAnalytics &&
+          {false && paymentAnalytics &&
             Object.keys(paymentAnalytics).map((key, index) => (
               <Grid key={index} item xs={12} md={3}>
                 <Paper
