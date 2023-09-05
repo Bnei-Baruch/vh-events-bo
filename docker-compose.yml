@@ -2,6 +2,7 @@ version: '2.2'
 services:
   vh-events-bo:
     image: "${IMAGE_NAME}"
+    restart: unless-stopped
     cpus: '0.1'
     mem_limit: 50M
     ports:
