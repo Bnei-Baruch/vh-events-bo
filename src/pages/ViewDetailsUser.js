@@ -166,7 +166,8 @@ const ViewDetailsUser = (props) => {
   }, [userId, user]);
 
   React.useEffect(() => {
-    if (keycloak.realmAccess.roles.includes("mb_admin_events_edit")) {
+    if (keycloak.realmAccess.roles.includes("vh_admin") || 
+          keycloak.realmAccess.roles.includes("vh_root")) {
       setEditRight(true);
     }
   }, [keycloak]);

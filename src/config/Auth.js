@@ -19,7 +19,8 @@ const Auth = (props) => {
     keycloak
       .init({ onLoad: "login-required", checkLoginIframe: false })
       .then((authenticated) => {
-        if (keycloak.realmAccess.roles.includes("mb_admin_users")) {
+         if (keycloak.realmAccess.roles.includes("vh_admin") || 
+              keycloak.realmAccess.roles.includes("vh_root")) {
           setAccess(true);
         }
         const eventId = localStorage.getItem("eventId");
