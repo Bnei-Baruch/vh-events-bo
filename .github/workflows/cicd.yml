@@ -85,7 +85,9 @@ jobs:
               exit 1
             fi
 
+            set -a
             source .env
+            set +a
             mkdir -p public/config
             gomplate --input-dir=config-templates \
               --output-map="/opt/vh/vh-events-bo/public/config/{{ .in | strings.ReplaceAll \".js\" \"-$SHORT_SHA.js\" }}"
