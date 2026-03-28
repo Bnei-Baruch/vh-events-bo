@@ -1,44 +1,55 @@
-# Virtual Home User Dashboard
+# vh-events-bo
 
-- events
-- galaxy
-- feed
-- study material
-- account management
-- profile management
+Admin back-office for managing Virtual Home events. Provides a UI for creating events, tracking participant registrations, viewing analytics, and sending notifications.
 
-## Events
+## Tech Stack
 
-### Getting calendar events
+- **React 18** (Create React App)
+- **Material-UI 5** component library
+- **Redux** state management
+- **Keycloak** authentication
+- **Nginx** for production serving
 
-We are getting calendar events using google calendar. You can find more
-info [here](https://developers.google.com/calendar/v3/reference/events/list). 
+## Features
 
-The events schedule will automatically refresh when:
+- **Event management** — create, edit, delete events
+- **Participant tracking** — view registrations, update status, CSV export
+- **Analytics** — event participation and payment stats
+- **User lookup** — search and view participant details
+- **i18n** — multi-language with RTL support
 
-- there is a live event – the schedule will be refreshed when the event ends
-- there is no live event and later the same day there will be an event – once the event starts the schedule will be refreshed
-- there are no more events for the day – the schedule will refresh on the next day, at midnight
+## Development
 
-### Getting participants
+```bash
+# Install dependencies
+yarn install
 
-The API to get participants during live event is https://gxydb.kli.one/galaxy/metrics  
+# Start dev server (port 3004)
+npm start
+```
 
+The app runs at `http://localhost:3004/admin/events` in development.
 
+## Configuration
 
-# How to build
----
-- Clone the master repository : ```git clone <url>```
+Runtime config is generated via gomplate from `config-templates/config.js` using these environment variables (stored in `.env` on VMs):
 
-- Create a branch - potentially with name if the issue / feature - like BUGFIX12345 ```git checkout -b BUGFIX/12345```
+| Variable | Description |
+|----------|-------------|
+| `VH_API_BASE_URL` | Backend API base URL |
+| `KEYCLOAK_REALM` | Keycloak realm |
+| `KEYCLOAK_URL` | Keycloak auth server URL |
+| `KEYCLOAK_CLIENT_ID` | Keycloak client ID |
 
-- Once we have tested it locally, push it to the remote repository
-		git push origin BUGIX/12345
+## Deployment
 
-- Create a merge request to master from UI, which will get deployed in staging.
+CI/CD runs via GitHub Actions (`workflow_dispatch`):
 
-- Once we are happy with all the changes in staging and we want to move to production.
+1. **Build** — Docker image (Node 21 build + Nginx 1.25 runtime) pushed to `ghcr.io/bnei-baruch/vh-events-bo`
+2. **Deploy** — Image pulled on target VM, runtime config generated via gomplate
 
-- Create a tag in gitlab - which will deploy the same in production.
-  
----
+Trigger manually from the Actions tab, selecting `staging` or `production`.
+
+## API Dependencies
+
+This app is a frontend for [vh-srv-events](https://github.com/Bnei-Baruch/vh-srv-events). All data comes from the events API at `VH_API_BASE_URL/events/v1/`.
